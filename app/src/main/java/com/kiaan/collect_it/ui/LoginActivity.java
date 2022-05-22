@@ -109,4 +109,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 }
 
-
+/*
+Code Attribution
+Author : Firebase - Google Developers
+Subject: Authenticate with Firebase using Password-Based Accounts on Android
+Code available : https://firebase.google.com/docs/auth/android/password-auth?hl=en&authuser=1
+Date accessed : [22/05/2022]"
+ */

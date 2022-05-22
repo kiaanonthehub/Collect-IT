@@ -14,8 +14,7 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.kiaan.collect_it.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/menu_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
