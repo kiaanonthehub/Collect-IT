@@ -1,5 +1,4 @@
 package Model;
 
-public class dbHandler {
-
+public class DbHandler {
 }
