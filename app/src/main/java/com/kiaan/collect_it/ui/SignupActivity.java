@@ -15,10 +15,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.kiaan.collect_it.R;
 
 import Model.CURRENT_USER;
+import Model.DbHandler;
+import Model.User;
 
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
+    private static boolean flag = false;
     // declare java variables
     private EditText etFirstname, etLastname, etEmail, etPassword;
     private FirebaseAuth mAuth;
@@ -59,11 +62,26 @@ public class SignupActivity extends AppCompatActivity {
             email = etEmail.getText().toString();
             password = etPassword.getText().toString();
 
+
             // method call to create a account
             createAccount(email, password);
 
             // instantiate a user object
-           // User u = new User(firstname, lastname, email);
+            User u = new User(firstname, lastname, email);
+
+            // initialise the current user
+            CURRENT_USER.displayName = u.getFirstname()+u.getLastname();
+
+            // instantiate DbHandler object
+            DbHandler db = new DbHandler();
+
+            Toast.makeText(this, CURRENT_USER.displayName, Toast.LENGTH_SHORT).show();
+
+            db.writeToFirebase("User", CURRENT_USER.displayName, u);
+
+            // instantiate new intent object
+            Intent intent = new Intent(SignupActivity.this, NavigationActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -75,19 +93,6 @@ public class SignupActivity extends AppCompatActivity {
 
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-
-                        // instantiate new intent to navigate to new view
-                        Intent intent = new Intent(SignupActivity.this, NavigationActivity.class);
-                        startActivity(intent);
-
-                        // check if the user object is populated
-                        if (user != null) {
-
-                            // initialise current user properties
-                            CURRENT_USER.email = user.getEmail();
-                            CURRENT_USER.displayName = user.getDisplayName();
-                        }
 
                     } else {
 
