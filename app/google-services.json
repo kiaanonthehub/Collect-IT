@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "54662875616",
+    "project_id": "collect-it-dec98",
+    "storage_bucket": "collect-it-dec98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54662875616:android:e836f2dce3002d6eaf4385",
+        "android_client_info": {
+          "package_name": "com.kiaan.collect_it"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54662875616-bra8gbi6m7pdb3po7d84an8m97o5773r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVsNuRbIL4-vfEf5Nn2aA0fRCR9qhUOb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54662875616-bra8gbi6m7pdb3po7d84an8m97o5773r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
