@@ -12,6 +12,11 @@
             android:id="@+id/nav_collection"
             android:icon="@drawable/ic_baseline_category_24"
             android:title="@string/menu_collection" />
+
+        <item
+            android:id="@+id/nav_item"
+            android:icon="@drawable/ic_baseline_create_24"
+            android:title="@string/menu_item" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_baseline_exit_to_app_24"

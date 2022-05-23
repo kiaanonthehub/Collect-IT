@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/drawable/ic_icons8_home.xml" value="0.159" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/activity_login.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/activity_navigation.xml" value="0.24048913043478262" />
@@ -10,7 +11,10 @@
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/content_navigation.xml" value="0.16523713420787084" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/fragment_collection.xml" value="0.33958333333333335" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/fragment_home.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/fragment_item.xml" value="0.23777173913043478" />
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/fragment_items.xml" value="0.16473259334006055" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/fragment_logout.xml" value="0.255078125" />
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/layout/nav_header_navigation.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/menu/navigation.xml" value="0.3411458333333333" />
       </map>
