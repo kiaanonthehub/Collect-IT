@@ -11,11 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.kiaan.collect_it.R;
 
 import Model.CURRENT_USER;
-import Model.DbHandler;
+import Model.dbHandler;
 import Model.User;
 
 public class SignupActivity extends AppCompatActivity {
@@ -73,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
             CURRENT_USER.displayName = u.getFirstname()+u.getLastname();
 
             // instantiate DbHandler object
-            DbHandler db = new DbHandler();
+            dbHandler db = new dbHandler();
 
             Toast.makeText(this, CURRENT_USER.displayName, Toast.LENGTH_SHORT).show();
 
