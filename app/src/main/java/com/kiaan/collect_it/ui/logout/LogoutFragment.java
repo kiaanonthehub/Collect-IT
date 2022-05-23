@@ -53,7 +53,6 @@ public class LogoutFragment extends Fragment {
 
         // Defines the xml file for the fragment
         return inflater.inflate(R.layout.fragment_home, parent, false);
-
     }
 
     @Override
