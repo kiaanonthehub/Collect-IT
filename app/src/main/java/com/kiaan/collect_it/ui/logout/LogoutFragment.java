@@ -52,7 +52,7 @@ public class LogoutFragment extends Fragment {
         alert.show();
 
         // Defines the xml file for the fragment
-        return inflater.inflate(R.layout.fragment_home, parent, false);
+        return inflater.inflate(R.layout.fragment_logout, parent, false);
     }
 
     @Override

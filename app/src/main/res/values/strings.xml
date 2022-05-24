@@ -37,4 +37,11 @@
     <string name="other">Other</string>
     <string name="quick_access">Quick Access</string>
     <string name="quick_create">Quick Create</string>
+    <string name="collect_it">Collect [IT]</string>
+    <string name="select_category_required">Select Category (required)</string>
+    <string name="item_name_required">Item Name (required)</string>
+    <string name="item_description_optional">Item Description (optional)</string>
+    <string name="collection_name_required">Collection Name (required)</string>
+    <string name="collection_description_optional">Collection Description (optional)</string>
+    <string name="goal_required">Goal (required)</string>
 </resources>
