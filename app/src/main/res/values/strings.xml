@@ -21,8 +21,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_collection">Collection</string>
-    <string name="menu_item">Item</string>
+    <string name="menu_collection">View Collections</string>
+    <string name="menu_item">View Items</string>
     <string name="menu_create_collection">Create Collection</string>
     <string name="menu_create_tem">Create Item</string>
     <string name="menu_about_us_contact_us">About us/Contact us</string>
