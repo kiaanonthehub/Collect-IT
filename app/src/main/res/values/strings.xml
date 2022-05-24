@@ -25,4 +25,11 @@
     <string name="menu_item">Item</string>
     <string name="menu_logout">Logout</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_collection">Create Collection</string>
+    <string name="create_item">Create Item</string>
+    <string name="faq">FAQ</string>
+    <string name="about_us_contact_us"><![CDATA[About us & Contact us]]></string>
+    <string name="other">Other</string>
+    <string name="quick_access">Quick Access</string>
+    <string name="quick_create">Quick Create</string>
 </resources>

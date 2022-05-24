@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+
+    <item android:title="@string/quick_access">
+        <menu>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -17,9 +20,43 @@
             android:id="@+id/nav_item"
             android:icon="@drawable/ic_baseline_create_24"
             android:title="@string/menu_item" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_baseline_exit_to_app_24"
-            android:title="@string/menu_logout" />
+
     </group>
+        </menu>
+    </item>
+
+   <!-- <item android:title="@string/quick_create">
+        <menu>
+            <group android:checkableBehavior="single">
+            <item
+                android:id=""
+                android:icon="@drawable/ic_baseline_post_add_24"
+                android:title="@string/create_collection" />
+            <item
+                android:id=""
+                android:title="@string/create_item" />
+            </group>
+        </menu>
+    </item>-->
+
+    <item android:title="@string/other">
+        <menu>
+            <group android:checkableBehavior="single">
+              <!--  <item
+                    android:id=""
+                    android:icon="@drawable/ic_baseline_help_outline_24"
+                    android:title="@string/faq" />
+                <item
+                    android:id=""
+                    android:icon="@drawable/ic_baseline_call_24"
+                    android:title="@string/about_us_contact_us" />-->
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_baseline_exit_to_app_24"
+                    android:title="@string/menu_logout" />
+            </group>
+        </menu>
+    </item>
+
 </menu>
+

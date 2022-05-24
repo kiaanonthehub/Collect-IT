@@ -1,5 +1,7 @@
 package com.kiaan.collect_it.ui;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,8 +9,6 @@ import android.view.Menu;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,7 +36,8 @@ public class NavigationActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarNavigation.toolbar);
         binding.appBarNavigation.fab.setOnClickListener(view -> {
            // navigate to create category - fragment to fragment
-
+            Intent intent = new Intent(this, CollectionFragment.class);
+            startActivity(intent);
 
         });
         DrawerLayout drawer = binding.drawerLayout;
