@@ -24,7 +24,6 @@
             </group>
 
         </menu>
-
     </item>
 
     <item android:title="@string/quick_create">
