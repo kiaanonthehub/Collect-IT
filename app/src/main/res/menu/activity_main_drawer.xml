@@ -25,31 +25,32 @@
         </menu>
     </item>
 
-   <!-- <item android:title="@string/quick_create">
+  <item android:title="@string/quick_create">
         <menu>
             <group android:checkableBehavior="single">
             <item
-                android:id=""
+                android:id="@+id/nav_create_collection"
                 android:icon="@drawable/ic_baseline_post_add_24"
                 android:title="@string/create_collection" />
             <item
-                android:id=""
+                android:id="@+id/nav_create_item"
+                android:icon="@drawable/ic_baseline_dashboard_customize_24"
                 android:title="@string/create_item" />
             </group>
         </menu>
-    </item>-->
+  </item>
 
     <item android:title="@string/other">
         <menu>
             <group android:checkableBehavior="single">
-              <!--  <item
-                    android:id=""
+            <item
+                    android:id="@+id/nav_faq"
                     android:icon="@drawable/ic_baseline_help_outline_24"
                     android:title="@string/faq" />
                 <item
-                    android:id=""
+                    android:id="@+id/nav_about_us_contact_us"
                     android:icon="@drawable/ic_baseline_call_24"
-                    android:title="@string/about_us_contact_us" />-->
+                    android:title="@string/about_us_contact_us"/>
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_baseline_exit_to_app_24"

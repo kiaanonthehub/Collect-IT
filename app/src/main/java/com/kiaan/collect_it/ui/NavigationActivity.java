@@ -1,14 +1,10 @@
 package com.kiaan.collect_it.ui;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,26 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.databinding.ActivityNavigationBinding;
-import com.kiaan.collect_it.ui.collection.CollectionFragment;
 
 public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityNavigationBinding binding;
-    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityNavigationBinding.inflate(getLayoutInflater());
+        com.kiaan.collect_it.databinding.ActivityNavigationBinding binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarNavigation.toolbar);
         binding.appBarNavigation.fab.setOnClickListener(view -> {
-           // navigate to create category - fragment to fragment
-            Intent intent = new Intent(this, CollectionFragment.class);
-            startActivity(intent);
+            // navigate to create category - fragment to fragment
 
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -45,7 +36,9 @@ public class NavigationActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_collection,R.id.nav_item , R.id.nav_logout)
+                R.id.nav_home, R.id.nav_collection, R.id.nav_item,
+                R.id.nav_logout, R.id.nav_create_collection,
+                R.id.nav_create_item)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation);
