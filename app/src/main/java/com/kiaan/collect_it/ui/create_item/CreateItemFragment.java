@@ -159,4 +159,10 @@ Author : Levi Moreira
 Subject : How can I populate a Spinner with Firebase data?
 Code available : https://stackoverflow.com/questions/49053155/how-can-i-populate-a-spinner-with-firebase-data [answered Mar 1, 2018 at 16:42]
 Date accessed : [25/05/2022]
+
+Author : CodingWithMitch
+Subject : Android Beginner Tutorial #25 - DatePicker Dialog [Choosing a Date from a Dialog Pop-Up]
+Code available : https://www.youtube.com/watch?v=hwe1abDO2Ag [Apr 6, 2017]
+Date accessed : [25/05/2022]
  */
+
