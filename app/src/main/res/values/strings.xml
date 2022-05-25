@@ -44,4 +44,7 @@
     <string name="collection_name_required">Collection Name (required)</string>
     <string name="collection_description_optional">Collection Description (optional)</string>
     <string name="goal_required">Goal (required)</string>
+    <string name="date_of_aquisition_optional">Date Of Aquisition (optional)</string>
+    <string name="category_required">Category (required)</string>
+    <string name="date_of_acquisition_optional">Date of Acquisition (optional)</string>
 </resources>

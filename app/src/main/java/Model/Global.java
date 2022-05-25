@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Global {
 
@@ -11,10 +12,19 @@ public class Global {
     public static String category;
     public static String item;
 
-    // collection
-    public static ArrayList<String> lstStrings = new ArrayList<>();
-    public static ArrayList<Category> lstCategory = new ArrayList<>();
-    public static ArrayList<Item> lstItems = new ArrayList<>();
+    // collection - arraylists
+    public static ArrayList<String> lstStrings;
+    public static ArrayList<String> lstViewCategory;
+    public static ArrayList<String> lstViewItems;
+    public static ArrayList<Category> lstCategory;
+    public static ArrayList<Item> lstItems;
+
+    public static String getUsername(String email) {
+        // get substring of @ and use as username for user
+        String[] split = email.split("@");
+
+        return split[0];
+    }
 
 
 }

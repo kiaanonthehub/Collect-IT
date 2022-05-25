@@ -6,6 +6,30 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/textViewDateAquisition"
+        android:layout_width="303dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/date_of_acquisition_optional"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextItemDescription" />
+
+    <EditText
+        android:id="@+id/editTextItemName"
+        android:layout_width="303dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:hint="@string/item_name_required"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/editTextItemDescription"
@@ -13,66 +37,52 @@
         android:layout_height="59dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:gravity="center"
         android:hint="@string/item_description_optional"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextItemName"
-        tools:ignore="TextContrastCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/buttonCreateItem"
         android:layout_width="146dp"
         android:layout_height="57dp"
+        android:layout_marginBottom="228dp"
         android:text="@string/collect_it"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerItemCategory"
-        app:layout_constraintVertical_bias="0.118" />
-
-    <EditText
-        android:id="@+id/editTextItemName"
-        android:layout_width="303dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/item_name_required"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Spinner
-        android:id="@+id/spinnerItemCategory"
-        android:layout_width="304dp"
-        android:layout_height="52dp"
+        android:id="@+id/spinner"
+        android:layout_width="303dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="303dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:gravity="bottom|center"
-        android:text="@string/select_category_required"
-        android:textSize="17sp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/category_required"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextItemDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateAquisition" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView3,spinnerItemCategory" />
+        app:constraint_referenced_ids="spinner,textView3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

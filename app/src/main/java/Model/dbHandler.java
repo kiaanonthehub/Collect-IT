@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class dbHandler {
 
     private DatabaseReference mDatabase;
@@ -42,7 +44,6 @@ public class dbHandler {
         categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Global.lstStrings.clear();
                 for (DataSnapshot d : snapshot.getChildren()) {
                     Global.lstStrings.add(d.getKey());
                 }
@@ -63,10 +64,10 @@ public class dbHandler {
         categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Global.lstStrings.clear();
                 for (DataSnapshot d : snapshot.getChildren()) {
-                    Global.lstStrings.add(d.getKey());
-                    Global.lstCategory.add(d.getValue(Category.class));
+                    //Global.lstViewCategory.add(d.getKey().toString());
+                    //Global.lstCategory.add(d.getValue(Category.class));
+                    CURRENT_USER.lstItemCat.add(d.getKey());
                 }
             }
 
@@ -85,9 +86,8 @@ public class dbHandler {
         categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Global.lstStrings.clear();
                 for (DataSnapshot d : snapshot.getChildren()) {
-                    Global.lstStrings.add(d.getKey());
+                    Global.lstViewCategory.add(d.getKey());
                     Global.lstItems.add(d.getValue(Item.class));
                 }
             }

@@ -11,14 +11,13 @@
         android:layout_height="59dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:gravity="center"
         android:hint="@string/collection_description_optional"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextCollectionName"
-        tools:ignore="TextContrastCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/editTextCollectionName"
@@ -26,7 +25,6 @@
         android:layout_height="59dp"
         android:layout_marginTop="84dp"
         android:ems="10"
-        android:gravity="center"
         android:hint="@string/collection_name_required"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
@@ -41,7 +39,6 @@
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:gravity="center"
         android:hint="@string/goal_required"
         android:importantForAutofill="no"
         android:inputType="number"
