@@ -20,7 +20,6 @@ import Model.User;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
-    private static boolean flag = false;
     // declare java variables
     private EditText etFirstname, etLastname, etEmail, etPassword;
     private FirebaseAuth mAuth;
@@ -69,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
             User u = new User(firstname, lastname, email);
 
             // initialise the current user
-            CURRENT_USER.displayName = u.getFirstname()+u.getLastname();
+            getUsername();
 
             // instantiate DbHandler object
             dbHandler db = new dbHandler();
@@ -92,6 +91,7 @@ public class SignupActivity extends AppCompatActivity {
 
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
+                        getUsername();
 
                     } else {
 
@@ -108,6 +108,16 @@ public class SignupActivity extends AppCompatActivity {
     private void reload() {
         finish();
         startActivity(getIntent());
+    }
+
+    private void getUsername()
+    {
+        // get substring of @ and use as username for user
+
+        String s = etEmail.getText().toString();
+        String[] split = s.split("@");
+        CURRENT_USER.displayName = split[0];
+        CURRENT_USER.email = etEmail.getText().toString();
     }
 }
 

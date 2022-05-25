@@ -13,24 +13,24 @@ public class dbHandler {
     private DatabaseReference mDatabase;
 
     // method to write object to real time database
-    public void writeToFirebase(String tableName, String uID, Object obj) {
+    public void writeToFirebase(String tableName, String userID, Object obj) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(tableName).child(uID).setValue(obj);
+        mDatabase.child(tableName).child(userID).setValue(obj);
     }
 
     // overload method to write nested child object to real time database
-    public void writeToFirebase(String tableName, String uID, String tableName2, String uID2, Object obj) {
+    public void writeToFirebase(String tableName, String userID, String category, String categoryName, Object obj) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(tableName).child(uID).child(tableName2).child(uID2).setValue(obj);
+        mDatabase.child(tableName).child(userID).child(category).child(categoryName).setValue(obj);
     }
 
     // overload method to write nested child object to real time database
-    public void writeToFirebase(String tableName, String uID, String tableName2, String uID2, String tableName3, String uID3, Object obj) {
+    public void writeToFirebase(String tableName, String userName, String category, String categoryName, String item, String itemName, Object obj) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(tableName).child(uID).child(tableName2).child(uID2).child(tableName3).child(uID3).setValue(obj);
+        mDatabase.child(tableName).child(userName).child(category).child(categoryName).child(item).child(itemName).setValue(obj);
     }
 
     //  method to read users from realtime database and store to arraylist

@@ -87,8 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (user != null) {
 
                                 // initialise current user properties
-                                CURRENT_USER.email = user.getEmail();
-                                CURRENT_USER.displayName = user.getDisplayName();
+                                getUsername();
                             }
 
                         } else {
@@ -106,6 +105,16 @@ public class LoginActivity extends AppCompatActivity {
     private void reload() {
         finish();
         startActivity(getIntent());
+    }
+
+    private void getUsername()
+    {
+        // get substring of @ and use as username for user
+
+        String s = etEmail.getText().toString();
+        String[] split = s.split("@");
+        CURRENT_USER.displayName = split[0];
+        CURRENT_USER.email = etEmail.getText().toString();
     }
 }
 
