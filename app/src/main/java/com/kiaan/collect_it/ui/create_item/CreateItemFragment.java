@@ -3,6 +3,7 @@ package com.kiaan.collect_it.ui.create_item;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +11,33 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.kiaan.collect_it.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import Model.CURRENT_USER;
 import Model.Item;
@@ -42,16 +54,27 @@ public class CreateItemFragment extends Fragment {
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
 
+    Button image_button;
+    ImageView imageview_button;
+    Uri imageUri;
+    FirebaseStorage storage;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_create_item, parent, false);
+
 
         // initialise java components
         // declare java components
         EditText etItmName = (EditText) view.findViewById(R.id.editTextItemName);
         EditText etItmDesc = (EditText) view.findViewById(R.id.editTextItemDescription);
         Button btnCreateItm = (Button) view.findViewById(R.id.buttonCreateItem);
+        image_button = (Button) view.findViewById(R.id.image_button);
+        imageview_button = (ImageView) view.findViewById(R.id.imageview_button);
+        storage = FirebaseStorage.getInstance();
 
         // get database reference
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -60,7 +83,7 @@ public class CreateItemFragment extends Fragment {
         // set listener to retrieve data from realtime database
         categoryRef.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 // declare temp arraylist
                 final List<String> list = new ArrayList<>();
@@ -72,8 +95,8 @@ public class CreateItemFragment extends Fragment {
                         // add value to the list
                         list.add(value);
                     }
-                }
 
+                }
                 // declare and initialise java component
                 Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
 
@@ -88,7 +111,7 @@ public class CreateItemFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -111,6 +134,7 @@ public class CreateItemFragment extends Fragment {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
+
         });
 
         mDateSetListener = (datePicker, y, month, d) -> {
@@ -138,10 +162,64 @@ public class CreateItemFragment extends Fragment {
             db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
             Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
         });
+        imageview_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                mGetContent.launch("image/*");
+
+            }
+        });
+
+        image_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //upload button on click
+                uploadImage();
+
+            }
+        });
 
         return view;
     }
+
+    private void uploadImage() {
+        if (imageUri != null) {
+            StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
+
+            reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
+    }
+
+
+
+
+    //Start of a new activity for a result image upload
+    ActivityResultLauncher<String> mGetContent= registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
+
+
+                    if(result!=null){
+                        imageview_button.setImageURI(result);
+                        imageUri=result;
+                    }
+                }
+            });
+
 
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/27837/Desktop/Collect-IT/app/src/main/res/layout/fragment_create_item.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/27837/Desktop/Collect-IT/app/src/main/res/layout/fragment_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.3065" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/drawable/ic_baseline_pageview_24.xml" value="0.2905" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/drawable/ic_icons8_home.xml" value="0.159" />
@@ -32,7 +34,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -7,11 +7,24 @@
 
 
     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="303dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="36dp"
+        android:text="Upload Image (required)"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
         android:id="@+id/textViewDateAquisition"
         android:layout_width="303dp"
         android:layout_height="26dp"
         android:layout_marginTop="24dp"
         android:text="@string/date_of_acquisition_optional"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +53,7 @@
         android:hint="@string/item_description_optional"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextItemName"
@@ -49,13 +63,13 @@
         android:id="@+id/buttonCreateItem"
         android:layout_width="146dp"
         android:layout_height="57dp"
-        android:layout_marginBottom="228dp"
         android:text="@string/collect_it"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -74,6 +88,7 @@
         android:layout_height="26dp"
         android:layout_marginTop="16dp"
         android:text="@string/category_required"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,5 +99,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="spinner,textView3" />
+
+    <Button
+        android:id="@+id/image_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:background="#43ADE6"
+        android:backgroundTint="#0B5A98"
+        android:fontFamily="sans-serif"
+        android:text="Add image(+)"
+        android:textColor="#FFEB3B"
+        android:textStyle="italic"
+        app:iconTint="#43ADE6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.361"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_button"
+        app:layout_constraintVertical_bias="0.062"
+        app:rippleColor="#43ADE6"
+        app:strokeColor="#43ADE6" />
+
+    <ImageView
+        android:id="@+id/imageview_button"
+        android:layout_width="143dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="306dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="26dp"
+        android:text="Click the image below to take a photo"
+        android:textColor="#4C4C4C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
