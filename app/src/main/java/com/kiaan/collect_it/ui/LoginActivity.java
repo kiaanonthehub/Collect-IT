@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kiaan.collect_it.R;
 
+import java.util.Locale;
+
 import Model.CURRENT_USER;
 
 public class LoginActivity extends AppCompatActivity {
@@ -113,8 +115,8 @@ public class LoginActivity extends AppCompatActivity {
 
         String s = etEmail.getText().toString();
         String[] split = s.split("@");
-        CURRENT_USER.displayName = split[0];
-        CURRENT_USER.email = etEmail.getText().toString();
+        CURRENT_USER.displayName = split[0].toLowerCase();
+        CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
 }
 

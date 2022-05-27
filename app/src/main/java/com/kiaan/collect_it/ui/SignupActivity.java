@@ -116,8 +116,8 @@ public class SignupActivity extends AppCompatActivity {
 
         String s = etEmail.getText().toString();
         String[] split = s.split("@");
-        CURRENT_USER.displayName = split[0];
-        CURRENT_USER.email = etEmail.getText().toString();
+        CURRENT_USER.displayName = split[0].toLowerCase();
+        CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
 }
 

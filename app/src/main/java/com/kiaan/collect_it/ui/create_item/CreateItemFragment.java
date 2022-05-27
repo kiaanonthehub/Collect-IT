@@ -22,8 +22,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.kiaan.collect_it.R;
 
 import java.util.ArrayList;
@@ -49,17 +46,31 @@ public class CreateItemFragment extends Fragment {
     // declare java components
     TextView mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
-    // declare variables
-    String name, desc, aquiDate, cat, uri;
-    // instantiate dbHandler object
-    dbHandler db = new dbHandler();
+    Spinner spinner;
 
-    Button image_button;
+    // declare variables
+    EditText etItmName, etItmDesc;
+    Button btnCreateItm;
+    String name, desc, aquiDate, cat, uri;
     ImageView imageview_button;
     Uri imageUri;
     FirebaseStorage storage;
 
+    // instantiate dbHandler object
+    dbHandler db = new dbHandler();
+    //Start of a new activity for a result image upload
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
 
+
+                    if (result != null) {
+                        imageview_button.setImageURI(result);
+                        imageUri = result;
+                    }
+                }
+            });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -69,10 +80,9 @@ public class CreateItemFragment extends Fragment {
 
         // initialise java components
         // declare java components
-        EditText etItmName = (EditText) view.findViewById(R.id.editTextItemName);
-        EditText etItmDesc = (EditText) view.findViewById(R.id.editTextItemDescription);
-        Button btnCreateItm = (Button) view.findViewById(R.id.buttonCreateItem);
-        image_button = (Button) view.findViewById(R.id.image_button);
+        etItmName = (EditText) view.findViewById(R.id.editTextItemName);
+        etItmDesc = (EditText) view.findViewById(R.id.editTextItemDescription);
+        btnCreateItm = (Button) view.findViewById(R.id.buttonCreateItem);
         imageview_button = (ImageView) view.findViewById(R.id.imageview_button);
         storage = FirebaseStorage.getInstance();
 
@@ -97,17 +107,13 @@ public class CreateItemFragment extends Fragment {
                     }
 
                 }
-                // declare and initialise java component
-                Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+                // initialise java component
+                spinner = (Spinner) view.findViewById(R.id.spinner);
 
                 // declare and initialise Array Adapter to bind values to the spinner in real time
                 ArrayAdapter<String> addressAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, list);
                 addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(addressAdapter);
-
-                // get the selected value from the spinner
-                cat = spinner.getSelectedItem().toString();
-
             }
 
             @Override
@@ -150,10 +156,17 @@ public class CreateItemFragment extends Fragment {
         // set button onclick
         btnCreateItm.setOnClickListener(view12 -> {
 
+            //upload button on click
+            uploadImage();
+
             // initialise variables and get users input
             name = etItmName.getText().toString();
             desc = etItmDesc.getText().toString();
-            uri = "test";
+
+            // get the selected value from the spinner
+            cat = spinner.getSelectedItem().toString();
+
+            uri = imageUri.toString();
 
             // instantiate Item object
             Item i = new Item(name, desc, cat, aquiDate, uri);
@@ -161,24 +174,11 @@ public class CreateItemFragment extends Fragment {
             // write object to firebase
             db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
             Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
+
+            // refresh the ui
+            refreshUI();
         });
-        imageview_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mGetContent.launch("image/*");
-
-            }
-        });
-
-        image_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //upload button on click
-                uploadImage();
-
-            }
-        });
+        imageview_button.setOnClickListener(view13 -> mGetContent.launch("image/*"));
 
         return view;
     }
@@ -187,45 +187,32 @@ public class CreateItemFragment extends Fragment {
         if (imageUri != null) {
             StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
 
-            reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
+            reference.putFile(imageUri).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                        Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
 
-                    } else {
-                        Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
 
-                    }
                 }
             });
         }
     }
-
-
-
-
-    //Start of a new activity for a result image upload
-    ActivityResultLauncher<String> mGetContent= registerForActivityResult(new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri result) {
-
-
-                    if(result!=null){
-                        imageview_button.setImageURI(result);
-                        imageUri=result;
-                    }
-                }
-            });
-
 
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
+    }
+
+    public void refreshUI() {
+
+        etItmName.getText().clear();
+        etItmDesc.getText().clear();
+        imageview_button.setImageDrawable(null);
+        mDisplayDate.setText("Date of Acquisition (optional)");
     }
 
 
@@ -242,5 +229,10 @@ Author : CodingWithMitch
 Subject : Android Beginner Tutorial #25 - DatePicker Dialog [Choosing a Date from a Dialog Pop-Up]
 Code available : https://www.youtube.com/watch?v=hwe1abDO2Ag [Apr 6, 2017]
 Date accessed : [25/05/2022]
+
+Author : Kon
+Subject : How to clear an ImageView in Android?
+Code available : https://stackoverflow.com/questions/2859212/how-to-clear-an-imageview-in-android [answered Apr 9, 2011 at 16:36]
+Date accessed : [27/05/2022]
  */
 

@@ -100,27 +100,6 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="spinner,textView3" />
 
-    <Button
-        android:id="@+id/image_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="151dp"
-        android:layout_height="43dp"
-        android:background="#43ADE6"
-        android:backgroundTint="#0B5A98"
-        android:fontFamily="sans-serif"
-        android:text="Add image(+)"
-        android:textColor="#FFEB3B"
-        android:textStyle="italic"
-        app:iconTint="#43ADE6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.361"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_button"
-        app:layout_constraintVertical_bias="0.062"
-        app:rippleColor="#43ADE6"
-        app:strokeColor="#43ADE6" />
-
     <ImageView
         android:id="@+id/imageview_button"
         android:layout_width="143dp"
