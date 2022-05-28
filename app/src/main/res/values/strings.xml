@@ -25,7 +25,8 @@
     <string name="menu_item">View Items</string>
     <string name="menu_create_collection">Create Collection</string>
     <string name="menu_create_tem">Create Item</string>
-    <string name="menu_about_us_contact_us">About us/Contact us</string>
+    <string name="menu_about_us_">About us</string>
+    <string name="menu_contact_us">Contact us</string>
     <string name="menu_faq">FAQ</string>
     <string name="menu_logout">Logout</string>
 
@@ -33,7 +34,9 @@
     <string name="create_collection">Create Collection</string>
     <string name="create_item">Create Item</string>
     <string name="faq">FAQ</string>
-    <string name="about_us_contact_us"><![CDATA[About us & Contact us]]></string>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us </string>
+
     <string name="other">Other</string>
     <string name="quick_access">Quick Access</string>
     <string name="quick_create">Quick Create</string>

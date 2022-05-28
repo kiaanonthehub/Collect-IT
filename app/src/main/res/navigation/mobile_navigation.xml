@@ -43,10 +43,16 @@
         tools:layout="@layout/fragment_faq" />
 
     <fragment
-        android:id="@+id/nav_about_us_contact_us"
-        android:name="com.kiaan.collect_it.ui.about_us_contact_us.AboutUsContactUsFragment"
-        android:label="@string/menu_about_us_contact_us"
-        tools:layout="@layout/fragment_about_us_contact_us" />
+        android:id="@+id/nav_about_us"
+        android:name="com.kiaan.collect_it.ui.about_us.AboutUsFragment"
+        android:label="@string/menu_about_us_"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/nav_contact_us"
+        android:name="com.kiaan.collect_it.ui.contact_us.ContactUsFragment"
+        android:label="@string/menu_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
 
     <fragment
         android:id="@+id/nav_home"

@@ -1,4 +1,4 @@
-package com.kiaan.collect_it.ui.about_us_contact_us;
+package com.kiaan.collect_it.ui.contact_us;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import com.kiaan.collect_it.R;
 
-public class AboutUsContactUsFragment extends Fragment {
+public class ContactUsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        return inflater.inflate(R.layout.fragment_about_us_contact_us, parent, false);
+        return inflater.inflate(R.layout.fragment_about_us, parent, false);
     }
 
     // This event is triggered soon after onCreateView().
