@@ -2,6 +2,8 @@ package com.kiaan.collect_it.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -15,9 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.databinding.ActivityNavigationBinding;
 
+import Model.CURRENT_USER;
+
 public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private TextView tvDisplayName, tvDisplayEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,11 @@ public class NavigationActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        // update the header view
+        updateHeaderView();
+
     }
 
     @Override
@@ -59,4 +69,17 @@ public class NavigationActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    public void updateHeaderView()
+    {
+        NavigationView mNavigationView = findViewById(R.id.nav_view);
+        View headerView = mNavigationView.getHeaderView(0);
+        // get user name and email textViews
+        TextView userName = headerView.findViewById(R.id.textViewDisplayName);
+        TextView userEmail = headerView.findViewById(R.id.textViewDisplayEmail);
+        // set user name and email
+        userName.setText(CURRENT_USER.displayName);
+        userEmail.setText(CURRENT_USER.email);
+    }
+
 }

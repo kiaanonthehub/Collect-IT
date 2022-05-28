@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kiaan.collect_it">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CollectIT"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.FilterItemsActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.NavigationActivity"
             android:exported="false"

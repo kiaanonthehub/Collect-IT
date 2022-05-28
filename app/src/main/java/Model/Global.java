@@ -14,8 +14,8 @@ public class Global {
 
     // collection - arraylists
     public static ArrayList<String> lstStrings;
-    public static ArrayList<String> lstViewCategory;
-    public static ArrayList<String> lstViewItems;
+    public static ArrayList<String> lstViewCategory = new ArrayList<>();
+    public static ArrayList<String> lstViewItems = new ArrayList<>();
     public static ArrayList<Category> lstCategory;
     public static ArrayList<Item> lstItems;
 
