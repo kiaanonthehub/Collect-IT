@@ -83,3 +83,10 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
 }
+/*
+Code Attribution
+Author : Ebi Igweze
+Subject : Changed name and email on navigation drawer display profil like playstore [duplicate]
+Code available : https://stackoverflow.com/questions/51686113/changed-name-and-email-on-navigation-drawer-display-profil-like-playstore [answered Aug 4, 2018 at 13:58]
+Date accessed : [28/05/2022]
+ */

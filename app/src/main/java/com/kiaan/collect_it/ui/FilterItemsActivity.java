@@ -46,7 +46,6 @@ public class FilterItemsActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-
         categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,16 +59,24 @@ public class FilterItemsActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
-
     }
 }
+
+/*
+Code Attribution
+Author : CodingSTUFF
+Subject : Retrieve Data From Firebase Realtime Database in RecyclerView (Android Studio 2020) #androidstudio
+Code available : https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbEU5NWJKNUJUMm9RbV9xSU53VzhWN3k3SGdvQXxBQ3Jtc0tualpVZlpORzhSdlVCRVB1TXJvSDFzajhnUDR6bnhka0pocU9qdGNWMDVWOFBtLTcxTkNWRUdaQ3JQU0ZQd2dlakFITkxITlV2SlV2QkpoNFVMMHFJdDVzWThKd1hySVJWblJIeTUzMjI3akZHRXpIUQ&q=https%3A%2F%2Fsanathgosavi.blogspot.com%2F2020%2F11%2Fupload-data-in-realtime-database-and.html&v=V4E5ROnbrGk
+Repo available : https://sanathgosavi.blogspot.com/2020/11/upload-data-in-realtime-database-and.html
+Date accessed : [28/05/2022]
+
+Author : Brandan Jones
+Subject : Retreiving Java object data from Firebase in Android Studio
+Code available : https://www.youtube.com/watch?v=aPLh31MWewc
+Date accessed : [28/05/2022]
+ */
