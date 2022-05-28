@@ -1,5 +1,6 @@
 package com.kiaan.collect_it.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.databinding.ActivityNavigationBinding;
+import com.kiaan.collect_it.ui.create_item.CreateItemFragment;
 
 import Model.CURRENT_USER;
 
@@ -32,10 +34,8 @@ public class NavigationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarNavigation.toolbar);
-        binding.appBarNavigation.fab.setOnClickListener(view -> {
-            // navigate to create category - fragment to fragment
 
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
