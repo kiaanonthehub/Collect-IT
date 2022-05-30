@@ -11,14 +11,10 @@
                     android:id="@+id/nav_home"
                     android:icon="@drawable/ic_baseline_home_24"
                     android:title="@string/menu_home" />
-                <item
-                    android:id="@+id/nav_collection"
-                    android:icon="@drawable/ic_baseline_category_24"
-                    android:title="@string/menu_collection" />
 
                 <item
                     android:id="@+id/nav_item"
-                    android:icon="@drawable/ic_baseline_create_24"
+                    android:icon="@drawable/ic_baseline_filter_alt_24"
                     android:title="@string/menu_item" />
 
             </group>
