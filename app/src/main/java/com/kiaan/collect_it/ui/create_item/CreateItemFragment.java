@@ -44,7 +44,7 @@ import Model.dbHandler;
 public class CreateItemFragment extends Fragment {
 
     // declare java components
-    TextView mDisplayDate;
+    EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     Spinner spinner;
 
@@ -123,10 +123,12 @@ public class CreateItemFragment extends Fragment {
         });
 
         // initialise java components
-        mDisplayDate = view.findViewById(R.id.textViewDateAquisition);
+       // mDisplayDate = view.findViewById(R.id.textViewDateAquisition);
+        mDisplayDate = view.findViewById(R.id.editTextDateAquisition);
 
         // set onclick listener
-        mDisplayDate.setOnClickListener(view1 -> {
+        mDisplayDate.setOnClickListener(view1 ->
+        {
 
             // get calendar instance
             Calendar cal = Calendar.getInstance();
@@ -216,7 +218,7 @@ public class CreateItemFragment extends Fragment {
         etItmName.getText().clear();
         etItmDesc.getText().clear();
         imageview_button.setImageDrawable(null);
-        mDisplayDate.setText("Date of Acquisition (optional)");
+        mDisplayDate.setText("Date of Acquisition");
     }
 
 
