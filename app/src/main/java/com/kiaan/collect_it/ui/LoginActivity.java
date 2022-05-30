@@ -109,8 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(getIntent());
     }
 
-    private void getUsername()
-    {
+    private void getUsername() {
         // get substring of @ and use as username for user
 
         String s = etEmail.getText().toString();

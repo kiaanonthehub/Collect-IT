@@ -4,57 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LoginActivity"
-    tools:ignore="ContentDescription"
-    android:background="@drawable/gradient_background">
+    tools:context=".ui.LoginActivity">
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="320dp"
+        android:layout_width="336dp"
         android:layout_height="39dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="@string/password"
-        android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/collection_app_logo__1"/>
+        tools:ignore="TouchTargetSizeCheck"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="320dp"
+        android:layout_width="336dp"
         android:layout_height="45dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="@string/email"
-        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="337dp"
         android:layout_height="46dp"
         android:layout_marginTop="28dp"
-        android:backgroundTint="@color/blue_500"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,5 +85,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="textViewDisplayEmail,textViewSignUp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
