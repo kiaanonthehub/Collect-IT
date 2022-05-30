@@ -12,8 +12,10 @@
         android:id="@+id/imageView2"
         android:layout_width="300dp"
         android:layout_height="200dp"
+        android:layout_marginTop="64dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/collection_app_logo__1" />
