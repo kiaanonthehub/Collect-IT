@@ -172,7 +172,11 @@ public class CreateItemFragment extends Fragment {
             Item i = new Item(name, desc, cat, aquiDate, uri);
 
             // write object to firebase
+            // users
             db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
+
+            // collections
+            db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName() , i);
             Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
 
             // refresh the ui

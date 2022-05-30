@@ -8,7 +8,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
 public class dbHandler {
 
@@ -19,6 +18,13 @@ public class dbHandler {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(tableName).child(userID).setValue(obj);
+    }
+
+    // method to write object to real time database
+    public void writeToFirebase(String tableName, String userID,String tableName2,  Object obj) {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child(tableName).child(userID).child(tableName2).setValue(obj);
     }
 
     // overload method to write nested child object to real time database
@@ -65,8 +71,6 @@ public class dbHandler {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot d : snapshot.getChildren()) {
-                    //Global.lstViewCategory.add(d.getKey().toString());
-                    //Global.lstCategory.add(d.getValue(Category.class));
                     CURRENT_USER.lstItemCat.add(d.getKey());
                 }
             }
