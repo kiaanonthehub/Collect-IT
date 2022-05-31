@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -104,7 +104,8 @@
         app:endIconMode="clear_text"
         app:helperText="Required*"
         app:helperTextTextColor="@color/red"
-        app:startIconDrawable="@drawable/ic_baseline_post_add_24">
+        app:startIconDrawable="@drawable/ic_baseline_post_add_24"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextItemName"

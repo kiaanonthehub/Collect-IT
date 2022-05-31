@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +49,7 @@ public class CreateItemFragment extends Fragment {
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     Spinner spinner;
+    TextInputLayout inputLayoutName;
 
     // declare variables
     EditText etItmName, etItmDesc;
@@ -85,6 +87,7 @@ public class CreateItemFragment extends Fragment {
         etItmDesc = (EditText) view.findViewById(R.id.editTextItemDescription);
         btnCreateItm = (Button) view.findViewById(R.id.buttonCreateItem);
         imageview_button = (ImageView) view.findViewById(R.id.imageview_button);
+        inputLayoutName = view.findViewById(R.id.textInputLayout7);
         storage = FirebaseStorage.getInstance();
 
         // get database reference
@@ -124,7 +127,7 @@ public class CreateItemFragment extends Fragment {
         });
 
         // initialise java components
-       // mDisplayDate = view.findViewById(R.id.textViewDateAquisition);
+        // mDisplayDate = view.findViewById(R.id.textViewDateAquisition);
         mDisplayDate = view.findViewById(R.id.editTextDateAquisition);
 
         // set onclick listener
@@ -159,6 +162,11 @@ public class CreateItemFragment extends Fragment {
         // set button onclick
         btnCreateItm.setOnClickListener(view12 -> {
 
+            // validation
+            if (!validateItemName()) {
+                return;
+            }
+
             //upload button on click
             uploadImage();
 
@@ -169,6 +177,12 @@ public class CreateItemFragment extends Fragment {
             // get the selected value from the spinner
             cat = spinner.getSelectedItem().toString();
 
+            if(cat.isEmpty())
+            {
+                Toast.makeText(getContext(), "Please select a category", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
             uri = imageUri.toString();
 
             // instantiate Item object
@@ -179,7 +193,7 @@ public class CreateItemFragment extends Fragment {
             db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
 
             // collections
-            db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName() , i);
+            db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName(), i);
             Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
 
             // refresh the ui
@@ -220,6 +234,19 @@ public class CreateItemFragment extends Fragment {
         etItmDesc.getText().clear();
         imageview_button.setImageDrawable(null);
         mDisplayDate.setText("Date of Acquisition");
+    }
+
+    private boolean validateItemName() {
+
+        String input = inputLayoutName.getEditText().getText().toString().trim();
+
+        if (input.isEmpty()) {
+            inputLayoutName.setError("Email Address is  required*");
+            return false;
+        } else {
+            inputLayoutName.setError(null);
+            return true;
+        }
     }
 
 
