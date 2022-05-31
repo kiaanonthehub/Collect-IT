@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,10 +67,13 @@ public class LoginActivity extends AppCompatActivity {
         // login button click action
         btnLogin.setOnClickListener(view -> {
 
+            if(!validateEmail() | !validatePassword())
+            {
+                return;
+            }
+
             // declare variables
             String email, password;
-
-
 
             // initialise variables
             email = etEmail.getText().toString().trim();
@@ -129,6 +133,31 @@ public class LoginActivity extends AppCompatActivity {
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
 
+    private boolean validateEmail() {
+
+        String emailInput = inputLayoutemail.getEditText().getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            inputLayoutemail.setError("Email Address is  required*");
+            return false;
+        } else {
+            inputLayoutemail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+
+        String passwordInput = inputLayoutpassword.getEditText().getText().toString().trim();
+
+        if (passwordInput.isEmpty()) {
+            inputLayoutpassword.setError("Password is required*");
+            return false;
+        } else {
+            inputLayoutpassword.setError(null);
+            return true;
+        }
+    }
 }
 
 /*
