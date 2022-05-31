@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSignup;
     private FirebaseAuth mAuth;
 
+    private TextInputLayout inputLayoutemail, inputLayoutpassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.editTextPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         tvSignup = findViewById(R.id.textViewSignUp);
+        inputLayoutemail = findViewById(R.id.textInputLayout);
+        inputLayoutpassword = findViewById(R.id.textInputLayout2);
 
         // textview click to switch to new view
         tvSignup.setOnClickListener(view -> {
@@ -59,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
 
             // declare variables
             String email, password;
+
+
 
             // initialise variables
             email = etEmail.getText().toString().trim();
@@ -117,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         CURRENT_USER.displayName = split[0].toLowerCase();
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
+
 }
 
 /*

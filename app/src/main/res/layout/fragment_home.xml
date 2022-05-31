@@ -7,15 +7,6 @@
     tools:context=".ui.home.HomeFragment"
     android:background="@drawable/gradient_background">
 
-    <TextView
-        android:id="@+id/textHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Collect[IT]"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="33dp"
-        tools:ignore="MissingConstraints" />
-
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

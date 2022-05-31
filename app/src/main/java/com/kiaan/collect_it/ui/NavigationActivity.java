@@ -44,7 +44,7 @@ public class NavigationActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_item,
                 R.id.nav_logout, R.id.nav_create_collection,
                 R.id.nav_create_item, R.id.nav_about_us,
-                R.id.nav_contact_us)
+                R.id.nav_contact_us, R.id.nav_faq)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation);
