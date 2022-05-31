@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kiaan.collect_it.R;
 
@@ -21,6 +22,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
     // declare java variables
+    private TextInputLayout inputLayoutName , inputLayoutSurname , inputLayoutEmail , inputLayoutPassword;
     private EditText etFirstname, etLastname, etEmail, etPassword;
     private FirebaseAuth mAuth;
 
@@ -39,6 +41,10 @@ public class SignupActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.editTextSignupPassword);
         Button btnSignup = findViewById(R.id.buttonSignup);
         TextView tvLogin = findViewById(R.id.textViewLogin);
+        inputLayoutName = findViewById(R.id.textInputLayout3);
+        inputLayoutSurname = findViewById(R.id.textInputLayout4);
+        inputLayoutEmail = findViewById(R.id.textInputLayout5);
+        inputLayoutPassword = findViewById(R.id.textInputLayout6);
 
         // textview click to switch to new view
         tvLogin.setOnClickListener(view -> {
@@ -50,6 +56,12 @@ public class SignupActivity extends AppCompatActivity {
 
         // login button click action
         btnSignup.setOnClickListener(view -> {
+
+
+            if(!validateName()| !validateSurname() | !validateEmail() | !validatePassword())
+            {
+                return;
+            }
 
             // declare variables
             String firstname, lastname, email, password;
@@ -118,6 +130,58 @@ public class SignupActivity extends AppCompatActivity {
         String[] split = s.split("@");
         CURRENT_USER.displayName = split[0].toLowerCase();
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
+    }
+
+
+    private boolean validateName() {
+
+        String emailInput = inputLayoutName.getEditText().getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            inputLayoutName.setError("First Name  is  required*");
+            return false;
+        } else {
+            inputLayoutName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateSurname() {
+
+        String emailInput = inputLayoutSurname.getEditText().getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            inputLayoutSurname.setError("Surname is  required*");
+            return false;
+        } else {
+            inputLayoutSurname.setError(null);
+            return true;
+        }
+    }
+    private boolean validateEmail() {
+
+        String emailInput = inputLayoutEmail.getEditText().getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            inputLayoutEmail.setError("Email Address is  required*");
+            return false;
+        } else {
+            inputLayoutEmail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+
+        String passwordInput = inputLayoutPassword.getEditText().getText().toString().trim();
+
+        if (passwordInput.isEmpty()) {
+            inputLayoutPassword.setError("Password is required*");
+            return false;
+        } else {
+            inputLayoutPassword.setError(null);
+            return true;
+        }
     }
 }
 
