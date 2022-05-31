@@ -1,10 +1,12 @@
 package com.kiaan.collect_it.ui.create_item;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +74,11 @@ public class CreateItemFragment extends Fragment {
                 }
             });
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_create_item, parent, false);
-
 
         // initialise java components
         // declare java components
