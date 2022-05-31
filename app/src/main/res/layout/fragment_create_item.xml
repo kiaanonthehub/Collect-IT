@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
 
     <TextView
         android:id="@+id/textView4"
@@ -40,13 +40,15 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/blue_700"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView3"
@@ -74,10 +76,11 @@
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:srcCompat="@drawable/ic_menu_camera" />
+        app:srcCompat="@drawable/file_icon" />
 
     <TextView
         android:id="@+id/textView5"

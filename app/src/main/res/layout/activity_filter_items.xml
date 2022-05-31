@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.FilterItemsActivity">
+    tools:context=".ui.FilterItemsActivity"
+    android:background="@drawable/bg_gradient">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
