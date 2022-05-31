@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.kiaan.collect_it.R;
 
 
@@ -23,6 +24,7 @@ public class CreateCollectionFragment extends Fragment {
 
     // declare java variables
     private EditText etCatName, etCatDesc, etCatGoal;
+    private TextInputLayout inputLayoutName, inputLayoutGoal;
 
 
     @Override
@@ -39,10 +41,16 @@ public class CreateCollectionFragment extends Fragment {
         etCatDesc = (EditText) view.findViewById(R.id.editTextCollectionDescription);
         etCatGoal = (EditText) view.findViewById(R.id.editTextCollectionGoal);
         Button btnCreateCategory = (Button) view.findViewById(R.id.buttonCreateCollection);
+        inputLayoutName = view.findViewById(R.id.textInputLayout10);
+        inputLayoutGoal = view.findViewById(R.id.textInputLayout12);
 
         // set button onclick
         btnCreateCategory.setOnClickListener(view1 -> {
 
+            // validate input
+            if (!validateName() | !validateGoal()) {
+                return;
+            }
 
             // Declare variables
             String name, desc, goal;
@@ -84,4 +92,31 @@ public class CreateCollectionFragment extends Fragment {
         etCatDesc.getText().clear();
         etCatGoal.getText().clear();
     }
+
+    private boolean validateName() {
+
+        String input = inputLayoutName.getEditText().getText().toString().trim();
+
+        if (input.isEmpty()) {
+            inputLayoutName.setError("Collection Name is  required*");
+            return false;
+        } else {
+            inputLayoutName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateGoal() {
+
+        String input = inputLayoutGoal.getEditText().getText().toString().trim();
+
+        if (input.isEmpty()) {
+            inputLayoutGoal.setError("Goal is  required*");
+            return false;
+        } else {
+            inputLayoutGoal.setError(null);
+            return true;
+        }
+    }
+
 }

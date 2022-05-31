@@ -135,9 +135,9 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean validateName() {
 
-        String emailInput = inputLayoutName.getEditText().getText().toString().trim();
+        String input = inputLayoutName.getEditText().getText().toString().trim();
 
-        if (emailInput.isEmpty()) {
+        if (input.isEmpty()) {
             inputLayoutName.setError("First Name  is  required*");
             return false;
         } else {
@@ -148,9 +148,9 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean validateSurname() {
 
-        String emailInput = inputLayoutSurname.getEditText().getText().toString().trim();
+        String input = inputLayoutSurname.getEditText().getText().toString().trim();
 
-        if (emailInput.isEmpty()) {
+        if (input.isEmpty()) {
             inputLayoutSurname.setError("Surname is  required*");
             return false;
         } else {
@@ -160,9 +160,9 @@ public class SignupActivity extends AppCompatActivity {
     }
     private boolean validateEmail() {
 
-        String emailInput = inputLayoutEmail.getEditText().getText().toString().trim();
+        String input = inputLayoutEmail.getEditText().getText().toString().trim();
 
-        if (emailInput.isEmpty()) {
+        if (input.isEmpty()) {
             inputLayoutEmail.setError("Email Address is  required*");
             return false;
         } else {
@@ -173,9 +173,9 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean validatePassword() {
 
-        String passwordInput = inputLayoutPassword.getEditText().getText().toString().trim();
+        String input = inputLayoutPassword.getEditText().getText().toString().trim();
 
-        if (passwordInput.isEmpty()) {
+        if (input.isEmpty()) {
             inputLayoutPassword.setError("Password is required*");
             return false;
         } else {
