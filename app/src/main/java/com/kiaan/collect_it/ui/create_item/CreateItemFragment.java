@@ -1,7 +1,11 @@
 package com.kiaan.collect_it.ui.create_item;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -17,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -33,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kiaan.collect_it.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -58,23 +65,10 @@ public class CreateItemFragment extends Fragment {
     ImageView imageview_button;
     Uri imageUri;
     FirebaseStorage storage;
-
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    ActivityResultLauncher<String> mGetContent;
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
-    //Start of a new activity for a result image upload
-    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri result) {
-
-
-                    if (result != null) {
-                        imageview_button.setImageURI(result);
-                        imageUri = result;
-                    }
-                }
-            });
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -183,10 +177,10 @@ public class CreateItemFragment extends Fragment {
                 return;
             }
             
-            uri = imageUri.toString();
+           // uri = imageUri.toString();
 
             // instantiate Item object
-            Item i = new Item(name, desc, cat, aquiDate, uri);
+            Item i = new Item(name, desc, cat, aquiDate, imageUri.toString());
 
             // write object to firebase
             // users
@@ -199,10 +193,58 @@ public class CreateItemFragment extends Fragment {
             // refresh the ui
             refreshUI();
         });
-        imageview_button.setOnClickListener(view13 -> mGetContent.launch("image/*"));
+       // imageview_button.setOnClickListener(
+         //       view13 -> mGetContent.launch("image/*"));
+
+
+
+
+        activityResultLauncher =  registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+            Bundle bundle = result.getData().getExtras();
+            Bitmap bitmap = (Bitmap) bundle.get("data");
+            imageview_button.setImageBitmap(bitmap);
+
+           String path =  MediaStore.Images.Media.insertImage(getContext().getContentResolver(),bitmap,"val",null);
+            imageUri = Uri.parse(path);
+
+
+
+
+            //  imageUri = result.getData().getData();
+        });
+
+        imageview_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //startActivityForResult(cInt,1);
+                activityResultLauncher.launch(cInt);
+                imageUri =  cInt.getData();
+                cInt.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            }
+        });
 
         return view;
     }
+
+
+
+
+/*    //Start of a new activity for a result image upload
+    ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+
+                    if (result != null) {
+                        imageview_button.setImageURI(result);
+                        imageUri = result;
+                    }
+                }
+            });*/
 
     private void uploadImage() {
         if (imageUri != null) {
