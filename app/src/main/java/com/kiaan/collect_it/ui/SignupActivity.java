@@ -22,7 +22,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
     // declare java variables
-    private TextInputLayout inputLayoutName , inputLayoutSurname , inputLayoutEmail , inputLayoutPassword;
+    private TextInputLayout inputLayoutName, inputLayoutSurname, inputLayoutEmail, inputLayoutPassword;
     private EditText etFirstname, etLastname, etEmail, etPassword;
     private FirebaseAuth mAuth;
 
@@ -58,8 +58,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(view -> {
 
 
-            if(!validateName()| !validateSurname() | !validateEmail() | !validatePassword())
-            {
+            if (!validateName() | !validateSurname() | !validateEmail() | !validatePassword()) {
                 return;
             }
 
@@ -122,8 +121,7 @@ public class SignupActivity extends AppCompatActivity {
         startActivity(getIntent());
     }
 
-    private void getUsername()
-    {
+    private void getUsername() {
         // get substring of @ and use as username for user
 
         String s = etEmail.getText().toString();
@@ -158,6 +156,7 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validateEmail() {
 
         String input = inputLayoutEmail.getEditText().getText().toString().trim();
@@ -178,6 +177,17 @@ public class SignupActivity extends AppCompatActivity {
         if (input.isEmpty()) {
             inputLayoutPassword.setError("Password is required*");
             return false;
+
+        } else if (input.length() < 8) {
+            inputLayoutPassword.setError("Password is weak."
+                   + "\n1. At least 8 characters"
+                    +"\n2. A mixture of both uppercase and lowercase letters"
+                    +"\n3. A mixture of letters and numbers"
+                    +"\n4. Inclusion of at least one special character, e.g., ! @ # ? ]");
+
+
+            return false;
+
         } else {
             inputLayoutPassword.setError(null);
             return true;
