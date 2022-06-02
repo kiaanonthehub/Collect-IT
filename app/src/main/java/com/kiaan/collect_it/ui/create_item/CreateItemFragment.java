@@ -13,7 +13,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,7 @@ public class CreateItemFragment extends Fragment {
     // declare variables
     EditText etItmName, etItmDesc;
     Button btnCreateItm;
-    String name, desc, aquiDate, cat, uri;
+    String name, desc, aquiDate, cat;
     ImageView imageview_button;
     FirebaseStorage storage;
 
@@ -202,30 +201,37 @@ public class CreateItemFragment extends Fragment {
                 return;
             }
 
-            if (imageLocalUri.toString().isEmpty()) {
-                Toast.makeText(CreateItemFragment.super.getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
-            } else {
-                // instantiate Item object
-                Item i = new Item(name, desc, cat, aquiDate, imageLocalUri.toString());
+            try {
+                if (imageLocalUri.toString().equals("")) {
+                    Toast.makeText(CreateItemFragment.super.getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
+                } else {
+                    // instantiate Item object
+                    Item i = new Item(name, desc, cat, aquiDate, imageLocalUri.toString());
 
-                // write object to firebase
-                // users
-                db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
+                    // write object to firebase
+                    // users
+                    db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
 
-                // collections
-                db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName(), i);
-                Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
+                    // collections
+                    db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName(), i);
+                    Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
 
-                // refresh the ui
-                refreshUI();
+                    // refresh the ui
+                    refreshUI();
+
+                    // reset fields
+                }
+            } catch (NullPointerException e) {
+                Toast.makeText(CreateItemFragment.super.getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
+                throw e;
             }
+            initialiseFields();
+
         });
 
         imageview_button.setOnClickListener(view13 -> {
 
-            // openCamera();
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, 100);
+            openCamera();
         });
 
         return view;
@@ -265,7 +271,6 @@ public class CreateItemFragment extends Fragment {
     private void uploadImage(Uri imageUri) {
         if (imageUri != null) {
             StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
-
             reference.putFile(imageUri).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
@@ -312,12 +317,16 @@ public class CreateItemFragment extends Fragment {
     private void openGallery() {
 
         Intent takePictureIntent = new Intent(Intent.ACTION_PICK);
-        // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //  takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, AUTHORITY, f));
-        //   takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
         takePictureIntent.setType("image/*");
         galleryActivityResultLauncher.launch(takePictureIntent);
     }
+
+    private void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 100);
+    }
+
 
     private void askCamPermission() {
         if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.CAMERA) !=
@@ -331,6 +340,15 @@ public class CreateItemFragment extends Fragment {
 
             //openCamera();
         }
+    }
+
+
+    private void initialiseFields() {
+        imageLocalUri = Uri.parse("");
+        name = "";
+        desc = "";
+        aquiDate = "";
+        cat = "";
     }
 
 }
