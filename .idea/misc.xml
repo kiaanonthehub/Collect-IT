@@ -62,7 +62,11 @@
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw400dp/activity_signup.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw300dp/activity_signup.xml" value="0.144017094017094" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw400dp/activity_signup.xml" value="0.14492753623188406" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw420dp/activity_signup.xml" value="0.15601851851851853" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw480dp/activity_signup.xml" value="0.1" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-w480dp/activity_signup.xml" value="0.14858906525573193" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_camera.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_filter_items.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_login.xml" value="0.22" />
