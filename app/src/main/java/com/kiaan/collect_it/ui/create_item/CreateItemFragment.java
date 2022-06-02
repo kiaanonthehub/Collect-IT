@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-
 import com.google.android.material.textfield.TextInputLayout;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,8 +43,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.kiaan.collect_it.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -56,6 +59,8 @@ import Model.dbHandler;
 
 public class CreateItemFragment extends Fragment {
 
+    public static Uri imageLocalUri;
+
     // declare java components
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -67,14 +72,10 @@ public class CreateItemFragment extends Fragment {
     Button btnCreateItm;
     String name, desc, aquiDate, cat, uri;
     ImageView imageview_button;
-    Uri imageUri;
     FirebaseStorage storage;
-
 
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
-
-
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -201,11 +202,11 @@ public class CreateItemFragment extends Fragment {
                 return;
             }
 
-            if (imageUri.equals("")) {
+            if (imageLocalUri.toString().isEmpty()) {
                 Toast.makeText(CreateItemFragment.super.getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
             } else {
                 // instantiate Item object
-                Item i = new Item(name, desc, cat, aquiDate, imageUri.toString());
+                Item i = new Item(name, desc, cat, aquiDate, imageLocalUri.toString());
 
                 // write object to firebase
                 // users
@@ -219,20 +220,12 @@ public class CreateItemFragment extends Fragment {
                 refreshUI();
             }
         });
-        // imageview_button.setOnClickListener(
-        //       view13 -> mGetContent.launch("image/*"));
 
+        imageview_button.setOnClickListener(view13 -> {
 
-        imageview_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                // openCamera();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
-            }
+            // openCamera();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 100);
         });
 
         return view;
@@ -245,8 +238,28 @@ public class CreateItemFragment extends Fragment {
         if (requestCode == 100) {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             imageview_button.setImageBitmap(captureImage);
-            imageUri = data.getData();
+
+            uploadImage(captureImage);
+
         }
+    }
+
+    public void uploadImage(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
+
+        UploadTask uploadTask = reference.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> {
+            // Handle unsuccessful uploads
+            Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
+        }).addOnSuccessListener(taskSnapshot -> {
+            reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
+
+            Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void uploadImage(Uri imageUri) {
@@ -255,6 +268,8 @@ public class CreateItemFragment extends Fragment {
 
             reference.putFile(imageUri).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+
+                    reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
                     Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
 
@@ -294,7 +309,7 @@ public class CreateItemFragment extends Fragment {
         }
     }
 
-    private void openCamera() {
+    private void openGallery() {
 
         Intent takePictureIntent = new Intent(Intent.ACTION_PICK);
         // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
