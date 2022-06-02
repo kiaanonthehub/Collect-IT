@@ -1,10 +1,12 @@
 package com.kiaan.collect_it.ui.create_item;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.content.Context;
+
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
+
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,7 +28,11 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -38,8 +44,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kiaan.collect_it.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -65,10 +69,34 @@ public class CreateItemFragment extends Fragment {
     ImageView imageview_button;
     Uri imageUri;
     FirebaseStorage storage;
-    ActivityResultLauncher<Intent> activityResultLauncher;
-    ActivityResultLauncher<String> mGetContent;
+
+
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
+
+
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    //here we will handle the result of our intent
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        //image picked
+                        //get uri of image
+                        Intent data = result.getData();
+                        Uri imageUri = data.getData();
+
+                        imageview_button.setImageURI(imageUri);
+                        uploadImage(imageUri);
+
+                    } else {
+                        //cancelled
+                        Toast.makeText(getContext(), "Cancelled...", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -121,7 +149,6 @@ public class CreateItemFragment extends Fragment {
         });
 
         // initialise java components
-        // mDisplayDate = view.findViewById(R.id.textViewDateAquisition);
         mDisplayDate = view.findViewById(R.id.editTextDateAquisition);
 
         // set onclick listener
@@ -161,8 +188,6 @@ public class CreateItemFragment extends Fragment {
                 return;
             }
 
-            //upload button on click
-            uploadImage();
 
             // initialise variables and get users input
             name = etItmName.getText().toString();
@@ -171,82 +196,60 @@ public class CreateItemFragment extends Fragment {
             // get the selected value from the spinner
             cat = spinner.getSelectedItem().toString();
 
-            if(cat.isEmpty())
-            {
+            if (cat.isEmpty()) {
                 Toast.makeText(getContext(), "Please select a category", Toast.LENGTH_SHORT).show();
                 return;
             }
-            
-           // uri = imageUri.toString();
 
-            // instantiate Item object
-            Item i = new Item(name, desc, cat, aquiDate, imageUri.toString());
+            if (imageUri.equals("")) {
+                Toast.makeText(CreateItemFragment.super.getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
+            } else {
+                // instantiate Item object
+                Item i = new Item(name, desc, cat, aquiDate, imageUri.toString());
 
-            // write object to firebase
-            // users
-            db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
+                // write object to firebase
+                // users
+                db.writeToFirebase("User", CURRENT_USER.displayName, "Category", i.getCategory(), "Item", i.getName(), i);
 
-            // collections
-            db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName(), i);
-            Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
+                // collections
+                db.writeToFirebase("Collections", CURRENT_USER.displayName, i.getName(), i);
+                Toast.makeText(getContext(), "Item successfully added to collection", Toast.LENGTH_SHORT).show();
 
-            // refresh the ui
-            refreshUI();
+                // refresh the ui
+                refreshUI();
+            }
         });
-       // imageview_button.setOnClickListener(
-         //       view13 -> mGetContent.launch("image/*"));
+        // imageview_button.setOnClickListener(
+        //       view13 -> mGetContent.launch("image/*"));
 
-
-
-
-        activityResultLauncher =  registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-
-            Bundle bundle = result.getData().getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");
-            imageview_button.setImageBitmap(bitmap);
-
-           String path =  MediaStore.Images.Media.insertImage(getContext().getContentResolver(),bitmap,"val",null);
-            imageUri = Uri.parse(path);
-
-
-
-
-            //  imageUri = result.getData().getData();
-        });
 
         imageview_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivityForResult(cInt,1);
-                activityResultLauncher.launch(cInt);
-                imageUri =  cInt.getData();
-                cInt.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
+
+
+                // openCamera();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
             }
         });
 
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            imageview_button.setImageBitmap(captureImage);
+            imageUri = data.getData();
+        }
+    }
 
-
-/*    //Start of a new activity for a result image upload
-    ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-
-                    if (result != null) {
-                        imageview_button.setImageURI(result);
-                        imageUri = result;
-                    }
-                }
-            });*/
-
-    private void uploadImage() {
+    private void uploadImage(Uri imageUri) {
         if (imageUri != null) {
             StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
 
@@ -283,7 +286,7 @@ public class CreateItemFragment extends Fragment {
         String input = inputLayoutName.getEditText().getText().toString().trim();
 
         if (input.isEmpty()) {
-            inputLayoutName.setError("Email Address is  required*");
+            inputLayoutName.setError("Item name is required*");
             return false;
         } else {
             inputLayoutName.setError(null);
@@ -291,6 +294,29 @@ public class CreateItemFragment extends Fragment {
         }
     }
 
+    private void openCamera() {
+
+        Intent takePictureIntent = new Intent(Intent.ACTION_PICK);
+        // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //  takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, AUTHORITY, f));
+        //   takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        takePictureIntent.setType("image/*");
+        galleryActivityResultLauncher.launch(takePictureIntent);
+    }
+
+    private void askCamPermission() {
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED) {
+
+
+            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.CAMERA}, 1112);
+        } else {
+
+            CURRENT_USER.permissions = true;
+
+            //openCamera();
+        }
+    }
 
 }
 

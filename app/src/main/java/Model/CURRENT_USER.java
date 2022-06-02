@@ -9,5 +9,6 @@ public class CURRENT_USER {
     public static String email;
     public static String displayName;
     public static String filterCategory;
+    public static boolean permissions = false;
     public static ArrayList<String> lstItemCat = new ArrayList<>();
 }

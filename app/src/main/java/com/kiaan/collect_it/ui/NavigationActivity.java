@@ -1,6 +1,8 @@
 package com.kiaan.collect_it.ui;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,6 +29,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private TextView tvDisplayName, tvDisplayEmail;
+    public static final int CAMERA_PERM_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,8 @@ public class NavigationActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
+        ActivityCompat.requestPermissions(NavigationActivity.this, new String[] {Manifest.permission.CAMERA}, 101);
+        //ActivityCompat.requestPermissions(NavigationActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 102);
         // update the header view
         updateHeaderView();
 
