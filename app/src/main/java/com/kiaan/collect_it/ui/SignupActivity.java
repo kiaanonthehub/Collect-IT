@@ -14,6 +14,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kiaan.collect_it.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import Model.CURRENT_USER;
 import Model.dbHandler;
 import Model.User;
@@ -21,10 +24,20 @@ import Model.User;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
+    // digit + lowercase char + uppercase char + punctuation + symbol
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
     // declare java variables
     private TextInputLayout inputLayoutName, inputLayoutSurname, inputLayoutEmail, inputLayoutPassword;
     private EditText etFirstname, etLastname, etEmail, etPassword;
     private FirebaseAuth mAuth;
+    private boolean flag = false;
+
+    public static boolean isValid(final String password) {
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
                         getUsername();
+                        flag = true;
 
                     } else {
 
@@ -117,19 +131,21 @@ public class SignupActivity extends AppCompatActivity {
 
     // reload the activity
     private void reload() {
+        Intent i = new Intent(SignupActivity.this, SignupActivity.class);
         finish();
-        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        startActivity(i);
+        overridePendingTransition(0, 0);
     }
 
     private void getUsername() {
         // get substring of @ and use as username for user
 
         String s = etEmail.getText().toString();
-        String[] split = s.replace(".","").split("@");
+        String[] split = s.replace(".", "").split("@");
         CURRENT_USER.displayName = split[0].toLowerCase();
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
-
 
     private boolean validateName() {
 
@@ -174,17 +190,14 @@ public class SignupActivity extends AppCompatActivity {
 
         String input = inputLayoutPassword.getEditText().getText().toString().trim();
 
-        if (input.isEmpty()) {
-            inputLayoutPassword.setError("Password is required*");
-            return false;
-
-        } else if (input.length() < 8) {
+        if (input.isEmpty()|| input.length() <8 || input.matches("[0-9]")) {
             inputLayoutPassword.setError("Password is weak."
-                   + "\n1. At least 8 characters"
-                    +"\n2. A mixture of both uppercase and lowercase letters"
-                    +"\n3. A mixture of letters and numbers"
-                    +"\n4. Inclusion of at least one special character, e.g., ! @ # ? ]");
-
+                    + "\n1. At least 8 characters"
+                    + "\n2. A mixture of both uppercase and lowercase letters"
+                    + "\n3. A mixture of letters and numbers"
+                    + "\n4. Inclusion of at least one special character, e.g., ! @ # ? ]");
+            input = "";
+            etPassword.getText().clear();
 
             return false;
 
