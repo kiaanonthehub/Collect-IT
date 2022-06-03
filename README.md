@@ -28,5 +28,5 @@ The user may take and store a picture of the item which intergrates the use for 
 - User Friendly Interface
 - Error and Exception handling
 
-Logo
-https://github.com/kiaanonthehub/Collect-IT/blob/master/logo/collection_app_logo.png
+
+![LOGO](../master/logo/collection_app_logo.png)
