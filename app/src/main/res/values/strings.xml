@@ -50,4 +50,8 @@
     <string name="date_of_aquisition_optional">Date Of Aquisition (optional)</string>
     <string name="category_required">Category (required)</string>
     <string name="date_of_acquisition_optional">Date of Acquisition</string>
+    <string name="update">Update</string>
+    <string name="collection_name">Collection Name</string>
+    <string name="description">Description</string>
+    <string name="goal">Goal</string>
 </resources>

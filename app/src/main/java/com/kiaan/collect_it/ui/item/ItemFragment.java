@@ -19,17 +19,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.ui.FilterItemsActivity;
+import com.kiaan.collect_it.ui.UpdateCollectionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.CURRENT_USER;
+import Model.Item;
 
 public class ItemFragment extends Fragment {
 
     // declare java variables
     Spinner spnFilterItems;
     Button btnViewFilterItems;
+    Button btnViewCat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class ItemFragment extends Fragment {
         // initialise java components
         spnFilterItems = view.findViewById(R.id.spinnerFilterItems);
         btnViewFilterItems = view.findViewById(R.id.buttonViewItems);
+        btnViewCat = view.findViewById(R.id.buttonViewCategory);
 
         //  disable the button
         btnViewFilterItems.setEnabled(false);
@@ -99,6 +103,18 @@ public class ItemFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        btnViewCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // get the selected value from the spinner
+                CURRENT_USER.filterCategory = spnFilterItems.getSelectedItem().toString();
+
+                Intent intent = new Intent(getActivity(), UpdateCollectionActivity.class);
+                startActivity(intent);
             }
         });
 
