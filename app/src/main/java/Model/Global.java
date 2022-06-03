@@ -21,7 +21,7 @@ public class Global {
 
     public static String getUsername(String email) {
         // get substring of @ and use as username for user
-        String[] split = email.split("@");
+        String[] split = email.replace(".","").split("@");
 
         return split[0];
     }

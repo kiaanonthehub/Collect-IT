@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         // get substring of @ and use as username for user
 
         String s = etEmail.getText().toString();
-        String[] split = s.split("@");
+        String[] split = s.replace(".","").split("@");
         CURRENT_USER.displayName = split[0].toLowerCase();
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
     }
