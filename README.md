@@ -13,7 +13,7 @@ The user may take and store a picture of the item which intergrates the use for 
 
 - [@kiaanonthehub](https://github.com/kiaanonthehub)
 - [@Tyler-Jagdew](https://github.com/Tyler-Jagdew)
-- [@abu-desai](hhttps://github.com/abu-desai)
+- [@abu-desai](https://github.com/abu-desai)
 
 
 
