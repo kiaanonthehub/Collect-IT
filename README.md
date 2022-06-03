@@ -1,6 +1,10 @@
 
 # Collect [IT] 
 
+
+![LOGO](../master/logo/collection_app_logo.png)
+
+
 This app is built on the Android Opperating System that targets skd: 32 
 available for Android 7.0+ devices.
 
@@ -29,4 +33,8 @@ The user may take and store a picture of the item which intergrates the use for 
 - Error and Exception handling
 
 
-![LOGO](../master/logo/collection_app_logo.png)
+![LOGO](../master/Screenshot_20220603-160102_Collect-IT.jpg)
+![LOGO](../master/Screenshot_20220603-160052_Collect-IT.jpg)
+![LOGO](../master/Screenshot_20220603-160102_Collect-IT.jpg)
+![LOGO](../master/Screenshot_20220603-160102_Collect-IT.jpg)
+
