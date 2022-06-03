@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +44,13 @@ public class UpdateCollectionActivity extends AppCompatActivity {
         etUpdateName = findViewById(R.id.editTextUpdateCollectionName);
         etUpdateDesc = findViewById(R.id.editTextUpdateCollectionDesc);
         etUpdateGoal = findViewById(R.id.editTextUpdateCollectionGoal);
+        updateCollection = findViewById(R.id.buttonUpdateCollection);
 
         // populate the edittext box
         populateData();
 
         // onButtonClick
+
         updateCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,21 +61,21 @@ public class UpdateCollectionActivity extends AppCompatActivity {
                 desc = etUpdateDesc.getText().toString();
                 goal = etUpdateGoal.getText().toString();
 
-                HashMap<String, Object> hash = new HashMap<String, Object>();
+                HashMap<String, Object> hash = new HashMap<>();
                 hash.put("name", name);
                 hash.put("description", desc);
                 hash.put("goal", goal);
 
-                categoryRef.updateChildren(hash).addOnSuccessListener(new OnSuccessListener() {
+
+                categoryRef.updateChildren(hash).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(Object o) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(UpdateCollectionActivity.this, "Data successfully updated", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         });
+
     }
 
     private void populateData() {
@@ -87,8 +91,8 @@ public class UpdateCollectionActivity extends AppCompatActivity {
                 }
 
                 if (!(lstColl.isEmpty())) {
-                    etUpdateDesc.setText(lstColl.get(0));
-                    etUpdateGoal.setText(lstColl.get(1));
+                    etUpdateDesc.setText(lstColl.get(1));
+                    etUpdateGoal.setText(lstColl.get(2));
                     etUpdateName.setText(lstColl.get(3));
                 }
             }
