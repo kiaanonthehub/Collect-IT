@@ -58,7 +58,7 @@ import Model.dbHandler;
 
 public class CreateItemFragment extends Fragment {
 
-    public static Uri imageLocalUri;
+    public static Uri imageLocalUri = Uri.EMPTY;
 
     // declare java components
     EditText mDisplayDate;
@@ -202,8 +202,8 @@ public class CreateItemFragment extends Fragment {
             }
 
             try {
-                if (imageLocalUri.toString().equals("")) {
-                    Toast.makeText(CreateItemFragment.super.getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
+                if (imageLocalUri.equals(Uri.EMPTY)) {
+                    Toast.makeText(getContext(), "Please upload an image", Toast.LENGTH_SHORT).show();
                 } else {
                     // instantiate Item object
                     Item i = new Item(name, desc, cat, aquiDate, imageLocalUri.toString());

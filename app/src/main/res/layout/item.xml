@@ -93,6 +93,17 @@
                 android:id="@+id/item_date_text"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            card_view:srcCompat="@tools:sample/avatars" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="54dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
