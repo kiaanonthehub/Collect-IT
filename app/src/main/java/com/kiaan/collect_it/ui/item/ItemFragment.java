@@ -46,6 +46,7 @@ public class ItemFragment extends Fragment {
 
         //  disable the button
         btnViewFilterItems.setEnabled(false);
+        btnViewCat.setEnabled(false);
 
         // initialise static value
         CURRENT_USER.filterCategory = null;
@@ -85,6 +86,7 @@ public class ItemFragment extends Fragment {
 
                     // enable button
                     btnViewFilterItems.setEnabled(true);
+                    btnViewCat.setEnabled(true);
 
                     // button onclick method
                     btnViewFilterItems.setOnClickListener(view1 -> {
@@ -109,6 +111,7 @@ public class ItemFragment extends Fragment {
         btnViewCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 // get the selected value from the spinner
                 CURRENT_USER.filterCategory = spnFilterItems.getSelectedItem().toString();

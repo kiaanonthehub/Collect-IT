@@ -44,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kiaan.collect_it.R;
+import com.kiaan.collect_it.ui.NavigationActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -89,6 +90,9 @@ public class CreateItemFragment extends Fragment {
 
                         imageview_button.setImageURI(imageUri);
                         uploadImage(imageUri);
+
+                        Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                        startActivity(intent);
 
                     } else {
                         //cancelled
