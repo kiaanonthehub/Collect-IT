@@ -54,4 +54,6 @@
     <string name="collection_name">Collection Name</string>
     <string name="description">Description</string>
     <string name="goal">Goal</string>
+    <string name="progress_graph">Progress Graph</string>
+    <string name="progress_bar">Progress Bar</string>
 </resources>

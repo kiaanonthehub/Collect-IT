@@ -54,4 +54,16 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
+    <fragment
+        android:id="@+id/nav_progressgraph"
+        android:name="com.kiaan.collect_it.ui.progresschart.progressChartFragment"
+        android:label="Progress Chart"
+        tools:layout="@layout/fragment_chart" />
+
+    <fragment
+        android:id="@+id/nav_progressbar"
+        android:name="com.kiaan.collect_it.ui.progressbar.progressBarFragment"
+        android:label="Progress Bar"
+        tools:layout="@layout/fragment_progressbar" />
+
 </navigation>
