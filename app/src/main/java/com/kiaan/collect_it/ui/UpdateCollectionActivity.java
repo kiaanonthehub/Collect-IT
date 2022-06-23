@@ -33,8 +33,8 @@ public class UpdateCollectionActivity extends AppCompatActivity {
     Button updateCollection;
 
     // get database reference
-    private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference categoryRef = rootRef.child("User").child(CURRENT_USER.displayName).child("Category").child(CURRENT_USER.filterCategory);
+    private final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference categoryRef = rootRef.child("User").child(CURRENT_USER.displayName).child("Category").child(CURRENT_USER.filterCategory);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

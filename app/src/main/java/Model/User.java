@@ -5,6 +5,9 @@ public class User {
     // declare private variables
     private String firstname, lastname , email;
 
+    public User() {
+    }
+
     // generate constructor
     public User(String firstname, String lastname, String email) {
         this.firstname = firstname;

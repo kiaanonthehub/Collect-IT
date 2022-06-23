@@ -76,7 +76,7 @@ public class CreateItemFragment extends Fragment {
 
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
