@@ -47,9 +47,21 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSignup;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    private final static int RC_SIGN_IN = 100;
+    private final static int RC_SIGN_IN = 123;
     private TextInputLayout inputLayoutemail, inputLayoutpassword;
 
+    //Google Sign-In
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!=null){
+            Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
+            startActivity(intent);
+            getUsername();
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.google_signIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 signIn();
             }
         });
@@ -154,20 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    //Google Sign-In
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user!=null){
-            Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
-            startActivity(intent);
-            getUsername();
-        }
-
-
-    }
+    //Google sign-in
 
     private void createRequest() {
 
@@ -179,7 +179,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
 
     }
 

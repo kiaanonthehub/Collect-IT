@@ -52,4 +52,5 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
