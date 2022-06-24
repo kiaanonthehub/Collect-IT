@@ -36,6 +36,7 @@ public class LogoutFragment extends Fragment {
 
             // close dialog
             dialog.dismiss();
+
         });
 
         // if user selects no

@@ -95,6 +95,7 @@ public class NavigationActivity extends AppCompatActivity {
         if(signInAccount != null){
             userName.setText(signInAccount.getDisplayName());
             userEmail.setText(signInAccount.getEmail());
+
         }
 
     }

@@ -155,7 +155,6 @@
                         android:text="Collection">
                     </TextView>
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
         </GridLayout>
     </LinearLayout>
