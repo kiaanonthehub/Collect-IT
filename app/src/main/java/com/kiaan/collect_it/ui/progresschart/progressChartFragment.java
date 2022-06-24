@@ -67,32 +67,16 @@ public class progressChartFragment extends Fragment {
         lstCategory.clear();
         lstItem.clear();
 
-        fillProgressChartArrayList();
 
-        for (int i = 0; i < ProgressChartDataArrayList.size(); i++) {
-            String categories = ProgressChartDataArrayList.get(i).getCategories();
-            int number = ProgressChartDataArrayList.get(i).getNumber();
-            barEntriesArrayList.add(new BarEntry(i, number));
-            lableName.add(categories);
-
-        }
-
-        BarDataSet barDataSet = new BarDataSet(barEntriesArrayList, "categories");
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-
-        Description description = new Description();
-        description.setText("categories");
-        barchart.setDescription(description);
-
-        BarData barData = new BarData(barDataSet);
-        barchart.setData(barData);
-
+        //fillProgressChartArrayList();
         GetChartData();
 
-    }
 
+
+
+    }
     private void fillProgressChartArrayList() {
+
         ProgressChartDataArrayList.clear();
         ProgressChartDataArrayList.add(new ProgressChartData("cars", 30));
         ProgressChartDataArrayList.add(new ProgressChartData("games", 60));
@@ -159,10 +143,28 @@ public class progressChartFragment extends Fragment {
 
             categoryItem = new CategoryItem(x.getName(), count, percentage);
             lstCatItem.add(categoryItem);
-
+            ProgressChartDataArrayList.add(new ProgressChartData(x.getName(), (int)percentage));
             count = 0;
             percentage = 0.0;
             goal = 0;
         }
+        for (int i = 0; i < ProgressChartDataArrayList.size(); i++) {
+            String categories = ProgressChartDataArrayList.get(i).getCategories();
+            int number = ProgressChartDataArrayList.get(i).getNumber();
+            barEntriesArrayList.add(new BarEntry(i, number));
+            lableName.add(categories);
+
+        }
+
+        BarDataSet barDataSet = new BarDataSet(barEntriesArrayList, "categories");
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+
+        Description description = new Description();
+        description.setText("categories");
+        barchart.setDescription(description);
+
+        BarData barData = new BarData(barDataSet);
+        barchart.setData(barData);
     }
 }
