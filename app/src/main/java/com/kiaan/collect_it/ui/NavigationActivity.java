@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.app.ActivityCompat;
@@ -88,8 +90,14 @@ public class NavigationActivity extends AppCompatActivity {
         // set user name and email
         userName.setText(CURRENT_USER.displayName);
         userEmail.setText(CURRENT_USER.email);
-    }
+        //Google User
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            userName.setText(signInAccount.getDisplayName());
+            userEmail.setText(signInAccount.getEmail());
+        }
 
+    }
 }
 /*
 Code Attribution
