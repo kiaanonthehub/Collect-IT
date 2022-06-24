@@ -60,6 +60,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             desc = itemView.findViewById(R.id.item_desc_text);
             date = itemView.findViewById(R.id.item_date_text);
             uri = itemView.findViewById(R.id.imageViewItem);
+
         }
     }
 }

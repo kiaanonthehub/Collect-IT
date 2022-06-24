@@ -48,6 +48,7 @@ public class LogoutFragment extends Fragment {
 
             // close dialog
             dialog.dismiss();
+
         });
 
         // create and display the dialog

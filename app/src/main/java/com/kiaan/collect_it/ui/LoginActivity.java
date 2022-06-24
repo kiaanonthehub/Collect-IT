@@ -40,6 +40,7 @@ import Model.CURRENT_USER;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
+
     // declare java variables
     private EditText etEmail, etPassword;
     private Button btnLogin;
