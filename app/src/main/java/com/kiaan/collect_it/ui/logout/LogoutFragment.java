@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.ui.LoginActivity;
 import com.kiaan.collect_it.ui.NavigationActivity;
@@ -29,11 +30,13 @@ public class LogoutFragment extends Fragment {
         builder.setPositiveButton("YES", (dialog, which) -> {
 
             // instantiate intent object to navigate to the sign in screen
+            FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
 
             // close dialog
             dialog.dismiss();
+
         });
 
         // if user selects no
@@ -45,6 +48,7 @@ public class LogoutFragment extends Fragment {
 
             // close dialog
             dialog.dismiss();
+
         });
 
         // create and display the dialog

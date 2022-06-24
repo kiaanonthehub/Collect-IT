@@ -40,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         holder.name.setText(model.getName());
         holder.desc.setText(model.getDescription());
         holder.date.setText(model.getDate_of_acquisition());
-        Picasso.with(context).load(model.getUri()).into(holder.uri);
+        //Picasso.with(context).load(model.getUri()).into(holder.uri);
     }
 
     @Override
