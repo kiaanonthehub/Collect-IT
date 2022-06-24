@@ -18,6 +18,7 @@ public class Global {
     public static ArrayList<String> lstViewItems = new ArrayList<>();
     public static ArrayList<Category> lstCategory;
     public static ArrayList<Item> lstItems;
+    public static ArrayList<CategoryItem> lstBarChartData = new ArrayList<>();
 
     public static String getUsername(String email) {
         // get substring of @ and use as username for user

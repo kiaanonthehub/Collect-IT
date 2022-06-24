@@ -31,18 +31,18 @@ import Model.Item;
 
 public class progressChartFragment extends Fragment {
 
+    public static ArrayList<CategoryItem> lstCatItem = new ArrayList<>();
     static ArrayList<Category> lstCategory = new ArrayList<>();
     static ArrayList<String> lstKeyCategory = new ArrayList<>();
     static ArrayList<Item> lstItem = new ArrayList<>();
     static ArrayList<String> lstItemCount = new ArrayList<>();
     static ArrayList<Integer> lstData = new ArrayList<>();
-    static ArrayList<CategoryItem> lstCatItem = new ArrayList<>();
-
     BarChart barchart;
     ArrayList<BarEntry> barEntriesArrayList;
     ArrayList<String> lableName;
     ArrayList<ProgressChartData> ProgressChartDataArrayList = new ArrayList<>();
     private FragmentHomeBinding binding;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
@@ -64,7 +64,8 @@ public class progressChartFragment extends Fragment {
         barEntriesArrayList = new ArrayList<>();
         lableName = new ArrayList<>();
         // ArrayList<ProgressChartData> ProgressChartDataArrayList = new ArrayList<>();
-
+        lstCategory.clear();
+        lstItem.clear();
 
         fillProgressChartArrayList();
 
@@ -115,24 +116,23 @@ public class progressChartFragment extends Fragment {
                 for (DataSnapshot addressSnapshot : dataSnapshot.getChildren()) {
                     lstCategory.add(addressSnapshot.getValue(Category.class));
                     lstKeyCategory.add(addressSnapshot.getKey());
-
                 }
-                GetCategoryItemCount();
-            }
+                // Item
+                DatabaseReference ItemRef = rootRef.child("Collections").child(CURRENT_USER.displayName);
+                ItemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot addressSnapshot : snapshot.getChildren()) {
+                            lstItem.add(addressSnapshot.getValue(Item.class));
+                        }
+                        GetCategoryItemCount();
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
 
-        // Item
-        DatabaseReference ItemRef = rootRef.child("Collections").child(CURRENT_USER.displayName);
-        ItemRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot addressSnapshot : snapshot.getChildren()) {
-                    lstItem.add(addressSnapshot.getValue(Item.class));
-                }
             }
 
             @Override
@@ -142,19 +142,27 @@ public class progressChartFragment extends Fragment {
     }
 
     private void GetCategoryItemCount() {
-        CategoryItem categoryItem ;
+        CategoryItem categoryItem;
+        lstCatItem.clear();
+        int count = 0, goal;
+        double percentage;
 
-        int count = 0;
-        for (String x : lstKeyCategory) {
+        for (Category x : lstCategory) {
             for (Item y : lstItem) {
-                if (y.getCategory().equals(x)) {
-                    count ++;
+                if (x.getName().equals(y.getCategory())) {
+                    count++;
                 }
             }
+            goal = Integer.parseInt(x.getGoal());
+            percentage = (double) count / (double) goal;
+            percentage = percentage * 100.0;
 
-            categoryItem =  new CategoryItem(x,count);
+            categoryItem = new CategoryItem(x.getName(), count, percentage);
             lstCatItem.add(categoryItem);
+
             count = 0;
+            percentage = 0.0;
+            goal = 0;
         }
     }
 }

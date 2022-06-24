@@ -91,7 +91,7 @@ public class UpdateCollectionActivity extends AppCompatActivity {
                 ArrayList<String> lstColl = new ArrayList<>();
 
                 for (DataSnapshot i : snapshot.getChildren()) {
-                    lstColl.add(i.getValue().toString());
+                    lstColl.add(String.valueOf(i.getValue()));
                 }
 
                 if (!(lstColl.isEmpty())) {
