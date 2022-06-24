@@ -18,13 +18,24 @@ public class CategoryItem {
         this.numberOfItems = numberOfItems;
     }
 
-    public CategoryItem(String categoryName, int numberOfItems) {
+    public CategoryItem(String categoryName, int numberOfItems, double percentage) {
         this.categoryName = categoryName;
         this.numberOfItems = numberOfItems;
+        this.percentage = percentage;
     }
 
     String categoryName;
     int numberOfItems;
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
+
+    double percentage;
 
 
 }
