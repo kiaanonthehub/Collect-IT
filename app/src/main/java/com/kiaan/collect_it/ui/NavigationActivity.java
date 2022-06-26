@@ -92,8 +92,8 @@ public class NavigationActivity extends AppCompatActivity {
         TextView userName = headerView.findViewById(R.id.textViewDisplayName);
         TextView userEmail = headerView.findViewById(R.id.textViewDisplayEmail);
         // set user name and email
-        userName.setText(CURRENT_USER.displayName);
-        userEmail.setText(CURRENT_USER.email);
+        //userName.setText(CURRENT_USER.displayName);
+        //userEmail.setText(CURRENT_USER.email);
         //Google User
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestId().requestEmail().build();
         gsc = GoogleSignIn.getClient(this,gso);
@@ -102,7 +102,10 @@ public class NavigationActivity extends AppCompatActivity {
             userName.setText(signInAccount.getDisplayName());
             userEmail.setText(signInAccount.getEmail());
         }
-
+        else {
+            userName.setText(CURRENT_USER.displayName);
+            userEmail.setText(CURRENT_USER.email);
+        }
     }
 }
 /*
