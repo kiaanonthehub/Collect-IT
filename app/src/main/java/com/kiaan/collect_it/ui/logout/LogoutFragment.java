@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.ui.LoginActivity;
@@ -31,6 +33,10 @@ public class LogoutFragment extends Fragment {
 
             // instantiate intent object to navigate to the sign in screen
             FirebaseAuth.getInstance().signOut();
+            GoogleSignIn.getClient(
+                    getContext(),
+                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+            ).signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
 
