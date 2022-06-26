@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.databinding.FragmentHomeBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Model.CURRENT_USER;
@@ -32,11 +33,10 @@ import Model.Item;
 public class progressChartFragment extends Fragment {
 
     public static ArrayList<CategoryItem> lstCatItem = new ArrayList<>();
+    public static ArrayList<String> categoryName = new ArrayList<>();
     static ArrayList<Category> lstCategory = new ArrayList<>();
     static ArrayList<String> lstKeyCategory = new ArrayList<>();
     static ArrayList<Item> lstItem = new ArrayList<>();
-    static ArrayList<String> lstItemCount = new ArrayList<>();
-    static ArrayList<Integer> lstData = new ArrayList<>();
     BarChart barchart;
     ArrayList<BarEntry> barEntriesArrayList;
     ArrayList<String> lableName;
@@ -71,19 +71,6 @@ public class progressChartFragment extends Fragment {
         //fillProgressChartArrayList();
         GetChartData();
 
-
-
-
-    }
-    private void fillProgressChartArrayList() {
-
-        ProgressChartDataArrayList.clear();
-        ProgressChartDataArrayList.add(new ProgressChartData("cars", 30));
-        ProgressChartDataArrayList.add(new ProgressChartData("games", 60));
-        ProgressChartDataArrayList.add(new ProgressChartData("books", 40));
-        ProgressChartDataArrayList.add(new ProgressChartData("recipes", 90));
-        ProgressChartDataArrayList.add(new ProgressChartData("movies", 20));
-        ProgressChartDataArrayList.add(new ProgressChartData("finance", 60));
     }
 
     private void GetChartData() {
@@ -143,7 +130,8 @@ public class progressChartFragment extends Fragment {
 
             categoryItem = new CategoryItem(x.getName(), count, percentage);
             lstCatItem.add(categoryItem);
-            ProgressChartDataArrayList.add(new ProgressChartData(x.getName(), (int)percentage));
+            categoryName.add(x.getName());
+            ProgressChartDataArrayList.add(new ProgressChartData(x.getName(), (int) percentage));
             count = 0;
             percentage = 0.0;
             goal = 0;
@@ -159,10 +147,10 @@ public class progressChartFragment extends Fragment {
         BarDataSet barDataSet = new BarDataSet(barEntriesArrayList, "categories");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-
         Description description = new Description();
         description.setText("categories");
         barchart.setDescription(description);
+        barchart.animateY(5000);
 
         BarData barData = new BarData(barDataSet);
         barchart.setData(barData);

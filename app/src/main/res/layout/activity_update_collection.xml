@@ -25,7 +25,8 @@ tools:context=".ui.UpdateCollectionActivity">
         android:id="@+id/editTextUpdateCollectionName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck"
+        android:enabled="false"/>
 </com.google.android.material.textfield.TextInputLayout>
 
 <com.google.android.material.textfield.TextInputLayout
