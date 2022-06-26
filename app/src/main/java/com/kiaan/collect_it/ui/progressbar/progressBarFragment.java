@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,18 +21,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kiaan.collect_it.R;
 import com.kiaan.collect_it.databinding.FragmentHomeBinding;
+import com.kiaan.collect_it.ui.progresschart.ProgressChartData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.CURRENT_USER;
+import Model.Category;
+import Model.CategoryItem;
+import Model.Item;
 
 public class progressBarFragment extends Fragment {
-    private FragmentHomeBinding binding;
+    static ArrayList<Category> lstCategory = new ArrayList<>();
+    static ArrayList<Item> lstItem = new ArrayList<>();
+    static String selectedCat = null, displayPercentage = null;
+    static int PercentageView = 0;
     Spinner spnViewCatProgress;
     Button btnViewCatProgress;
     ProgressBar progress;
     TextView tvProgress;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
@@ -41,6 +50,11 @@ public class progressBarFragment extends Fragment {
         btnViewCatProgress = view.findViewById(R.id.buttonViewCategoryProgress);
         progress = view.findViewById(R.id.progressBarCategory);
         tvProgress = view.findViewById(R.id.textViewCategoryPercent);
+
+        progress.setProgress(0, true);
+        tvProgress.setText("% Complete");
+        lstCategory.clear();
+        lstItem.clear();
 
         // populate the spinner box
         // get database reference
@@ -81,8 +95,15 @@ public class progressBarFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                progress.setProgress(20);
-                tvProgress.setText("20%");
+                try {
+                    PercentageView = 0;
+                    selectedCat = spnViewCatProgress.getSelectedItem().toString();
+                    progress.setProgress(0, true);
+                    tvProgress.setText("% Complete");
+                    GetChartData();
+                } catch (java.lang.NullPointerException x) {
+                    Toast.makeText(getActivity(), "Please select a Category from the dropdown", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -94,5 +115,77 @@ public class progressBarFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+    }
+
+    private void GetChartData() {
+        // get database reference
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference categoryRef = rootRef.child("User").child(CURRENT_USER.displayName);
+
+        lstCategory.clear();
+        lstItem.clear();
+
+
+        // get category db data
+        // set listener to retrieve data from realtime database
+        categoryRef.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // retrieve data from real time database
+                for (DataSnapshot addressSnapshot : dataSnapshot.getChildren()) {
+                    lstCategory.add(addressSnapshot.getValue(Category.class));
+                }
+                // Item
+                DatabaseReference ItemRef = rootRef.child("Collections").child(CURRENT_USER.displayName);
+                ItemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot addressSnapshot : snapshot.getChildren()) {
+                            lstItem.add(addressSnapshot.getValue(Item.class));
+                        }
+                        GetCategoryItemCount();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void GetCategoryItemCount() {
+        int count = 0, goal;
+        double percentage;
+        goal = 0;
+        percentage = 0;
+        PercentageView = 0;
+
+        for (Category x : lstCategory) {
+            for (Item y : lstItem) {
+                if (x.getName().equals(y.getCategory())) {
+                    if (selectedCat.equals(x.getName()) && selectedCat.equals(y.getCategory())) {
+                        count++;
+                        goal = Integer.parseInt(x.getGoal());
+                    }
+                }
+            }
+            percentage = (double) count / (double) goal;
+            percentage = percentage * 100.0;
+            PercentageView = (int) percentage;
+            displayPercentage = percentage + "% Complete";
+            if(PercentageView!=0){
+            progress.setProgress(PercentageView, true);
+            tvProgress.setText(displayPercentage);}
+            goal = 0;
+            percentage = 0;
+            PercentageView = 0;
+            count = 0;
+        }
     }
 }
