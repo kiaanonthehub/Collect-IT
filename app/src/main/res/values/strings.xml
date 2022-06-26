@@ -56,4 +56,6 @@
     <string name="progress_graph">Progress Graph</string>
     <string name="progress_bar">Progress Bar</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="view_progress">View Progress</string>
+    <string name="select_a_category_below">Select a category below</string>
 </resources>
