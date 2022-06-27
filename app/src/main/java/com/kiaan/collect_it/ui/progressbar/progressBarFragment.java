@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class progressBarFragment extends Fragment {
     Button btnViewCatProgress;
     ProgressBar progress;
     TextView tvProgress;
+    TextView holder;
+    TextView status;
+    ImageView Badge;
     private FragmentHomeBinding binding;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -50,6 +54,9 @@ public class progressBarFragment extends Fragment {
         btnViewCatProgress = view.findViewById(R.id.buttonViewCategoryProgress);
         progress = view.findViewById(R.id.progressBarCategory);
         tvProgress = view.findViewById(R.id.textViewCategoryPercent);
+        Badge=view.findViewById(R.id.imageview50);
+        holder=view.findViewById(R.id.textView7);
+        status=view.findViewById(R.id.statusText);
 
         progress.setProgress(0, true);
         tvProgress.setText("% Complete");
@@ -182,10 +189,28 @@ public class progressBarFragment extends Fragment {
             if(PercentageView!=0){
             progress.setProgress(PercentageView, true);
             tvProgress.setText(displayPercentage);}
-            goal = 0;
-            percentage = 0;
-            PercentageView = 0;
-            count = 0;
+
+            if (PercentageView<=25) {
+                Badge.setImageResource(0);
+                Badge.setImageResource(R.drawable.badge1);
+                status.setText("You are Level 1 Milestone");
+            }
+
+            else if (PercentageView>25&&PercentageView<=50) {
+                Badge.setImageResource(0);
+                Badge.setImageResource(R.drawable.badge2);
+                status.setText("You are Level 2 Milestone");
+            }
+            else if (PercentageView>50&&PercentageView<=75) {
+                Badge.setImageResource(0);
+                Badge.setImageResource(R.drawable.badge3);
+                status.setText("You are Level 3 Milestone");
+            }
+            else if  (PercentageView>75&&PercentageView<=100) {
+                Badge.setImageResource(0);
+                Badge.setImageResource(R.drawable.badge4);
+                status.setText("You are Level 4 Milestone");
+            }
         }
     }
 }
