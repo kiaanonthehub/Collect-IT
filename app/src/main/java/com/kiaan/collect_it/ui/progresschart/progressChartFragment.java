@@ -13,6 +13,7 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,9 @@ import com.kiaan.collect_it.databinding.FragmentHomeBinding;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import Model.CURRENT_USER;
 import Model.Category;
@@ -136,12 +140,13 @@ public class progressChartFragment extends Fragment {
             percentage = 0.0;
             goal = 0;
         }
+
+
         for (int i = 0; i < ProgressChartDataArrayList.size(); i++) {
             String categories = ProgressChartDataArrayList.get(i).getCategories();
             int number = ProgressChartDataArrayList.get(i).getNumber();
             barEntriesArrayList.add(new BarEntry(i, number));
             lableName.add(categories);
-
         }
 
         BarDataSet barDataSet = new BarDataSet(barEntriesArrayList, "categories");
@@ -154,5 +159,8 @@ public class progressChartFragment extends Fragment {
 
         BarData barData = new BarData(barDataSet);
         barchart.setData(barData);
+
+        List<String> listDistinct = categoryName.stream().distinct().collect(Collectors.toList());
+        barchart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(listDistinct));
     }
 }

@@ -167,12 +167,14 @@ public class progressBarFragment extends Fragment {
     }
 
     private void GetCategoryItemCount() {
+        // declare and initialise values
         int count = 0, goal;
         double percentage;
         goal = 0;
         percentage = 0;
         PercentageView = 0;
 
+        // iterate through the lists - nested
         for (Category x : lstCategory) {
             for (Item y : lstItem) {
                 if (x.getName().equals(y.getCategory())) {
@@ -182,13 +184,16 @@ public class progressBarFragment extends Fragment {
                     }
                 }
             }
+
+            // calculate the percentage of the progress bar
             percentage = (double) count / (double) goal;
             percentage = percentage * 100.0;
             PercentageView = (int) percentage;
             displayPercentage = percentage + "% Complete";
-            if(PercentageView!=0){
-            progress.setProgress(PercentageView, true);
-            tvProgress.setText(displayPercentage);}
+            if (PercentageView != 0) {
+                progress.setProgress(PercentageView, true);
+                tvProgress.setText(displayPercentage);
+            }
 
             if (PercentageView<=25) {
                 Badge.setImageResource(0);
