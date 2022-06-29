@@ -1,5 +1,7 @@
 package com.kiaan.collect_it.ui;
 
+import static Model.Global.userID;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -31,11 +33,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kiaan.collect_it.R;
+import com.kiaan.collect_it.ResetPasswordActivity;
 
 import java.util.Locale;
 
 import Model.CURRENT_USER;
+import Model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,11 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     // declare java variables
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private TextView tvSignup;
+    private TextView tvSignup, tvForgottenPassword;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
     private TextInputLayout inputLayoutemail, inputLayoutpassword;
+    private DatabaseReference mDatabase;
 
     //Google Sign-In
     @Override
@@ -89,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.editTextPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         tvSignup = findViewById(R.id.textViewSignUp);
+        tvForgottenPassword = findViewById(R.id.textViewForgottenPassword);
         inputLayoutemail = findViewById(R.id.textInputLayout);
         inputLayoutpassword = findViewById(R.id.textInputLayout2);
 
@@ -97,6 +105,13 @@ public class LoginActivity extends AppCompatActivity {
 
             // instantiate new intent object
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
+        });
+
+        tvForgottenPassword.setOnClickListener(view -> {
+
+            // instantiate new intent object
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
             startActivity(intent);
         });
 
@@ -210,8 +225,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
-
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -219,8 +233,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            getUsername();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                //Email address
+                                String email = user.getEmail();
+                                getGoogleUsername(email);
+                                Toast.makeText(LoginActivity.this, CURRENT_USER.displayName , Toast.LENGTH_SHORT).show();
+                            }
+
+                            Log.d("User Id", user.getUid());
+
+                            //CURRENT_USER.email=mAuth.getCurrentUser().getEmail();
                             Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
                             startActivity(intent);
 
@@ -250,6 +273,15 @@ public class LoginActivity extends AppCompatActivity {
         String[] split = s.replace(".","").split("@");
         CURRENT_USER.displayName = split[0].toLowerCase();
         CURRENT_USER.email = etEmail.getText().toString().toLowerCase();
+    }
+
+    private void getGoogleUsername(String email) {
+        // get substring of @ and use as username for user
+
+        String s = email;
+        String[] split = s.replace(".","").split("@");
+        CURRENT_USER.displayName = split[0].toLowerCase();
+        CURRENT_USER.email = email.toLowerCase();
     }
 
     private boolean validateEmail() {
