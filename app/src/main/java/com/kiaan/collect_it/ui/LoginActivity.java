@@ -36,6 +36,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kiaan.collect_it.R;
+import com.kiaan.collect_it.ResetPasswordActivity;
 
 import java.util.Locale;
 
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     // declare java variables
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private TextView tvSignup;
+    private TextView tvSignup, tvForgottenPassword;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
@@ -95,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.editTextPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         tvSignup = findViewById(R.id.textViewSignUp);
+        tvForgottenPassword = findViewById(R.id.textViewForgottenPassword);
         inputLayoutemail = findViewById(R.id.textInputLayout);
         inputLayoutpassword = findViewById(R.id.textInputLayout2);
 
@@ -103,6 +105,13 @@ public class LoginActivity extends AppCompatActivity {
 
             // instantiate new intent object
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
+        });
+
+        tvForgottenPassword.setOnClickListener(view -> {
+
+            // instantiate new intent object
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
             startActivity(intent);
         });
 
