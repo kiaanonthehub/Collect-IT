@@ -96,8 +96,9 @@
 
         <ImageView
             android:id="@+id/imageViewItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             card_view:srcCompat="@tools:sample/avatars" />
 
