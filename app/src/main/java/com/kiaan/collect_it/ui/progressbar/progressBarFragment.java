@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,15 +51,21 @@ public class progressBarFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
+        RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(700);
+
+
         View view = inflater.inflate(R.layout.fragment_progressbar, parent, false);
 
         spnViewCatProgress = view.findViewById(R.id.spinnerSelectProgress);
         btnViewCatProgress = view.findViewById(R.id.buttonViewCategoryProgress);
         progress = view.findViewById(R.id.progressBarCategory);
         tvProgress = view.findViewById(R.id.textViewCategoryPercent);
-        Badge=view.findViewById(R.id.imageview50);
-        holder=view.findViewById(R.id.textView7);
-        status=view.findViewById(R.id.statusText);
+        Badge = view.findViewById(R.id.imageview50);
+        holder = view.findViewById(R.id.textView7);
+        status = view.findViewById(R.id.statusText);
 
         progress.setProgress(0, true);
         tvProgress.setText("% Complete");
@@ -195,27 +204,107 @@ public class progressBarFragment extends Fragment {
                 tvProgress.setText(displayPercentage);
             }
 
-            if (PercentageView<=25) {
+            if (PercentageView <= 25) {
                 Badge.setImageResource(0);
+
+                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatCount(Animation.INFINITE);
+                anim.setDuration(700);
+                Badge.startAnimation(anim);
                 Badge.setImageResource(R.drawable.badge1);
-                status.setText("You are Level 1 Milestone");
+
+                Badge.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Badge.setAnimation(null);
+                    }
+                }, 2500);
+                status.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        status.setText("You are Level 1 Milestone");
+                    }
+                }, 3000);
             }
 
-            else if (PercentageView>25&&PercentageView<=50) {
+
+            if (PercentageView > 25 && PercentageView <= 50) {
                 Badge.setImageResource(0);
+                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatCount(Animation.INFINITE);
+                anim.setDuration(700);
+                Badge.startAnimation(anim);
                 Badge.setImageResource(R.drawable.badge2);
-                status.setText("You are Level 2 Milestone");
+
+                Badge.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Badge.setAnimation(null);
+                    }
+                }, 2500);
+                status.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        status.setText("You are Level 2 Milestone");
+                    }
+                }, 3000);
             }
-            else if (PercentageView>50&&PercentageView<=75) {
+
+
+
+            if (PercentageView > 50 && PercentageView <= 75) {
                 Badge.setImageResource(0);
+                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatCount(Animation.INFINITE);
+                anim.setDuration(700);
+                Badge.startAnimation(anim);
                 Badge.setImageResource(R.drawable.badge3);
-                status.setText("You are Level 3 Milestone");
+
+                Badge.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Badge.setAnimation(null);
+                    }
+                }, 2500);
+                status.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        status.setText("You are Level 3 Milestone");
+                    }
+                }, 3000);
+
             }
-            else if  (PercentageView>75&&PercentageView<=100) {
+
+
+
+            if (PercentageView > 75 && PercentageView <= 100) {
                 Badge.setImageResource(0);
+                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatCount(Animation.INFINITE);
+                anim.setDuration(700);
+                Badge.startAnimation(anim);
                 Badge.setImageResource(R.drawable.badge4);
-                status.setText("You are Level 4 Milestone");
+
+                Badge.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Badge.setAnimation(null);
+                    }
+                }, 3000);
+
+                status.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        status.setText("You are Level 4 Milestone");
+                    }
+                }, 2000);
             }
+
+
         }
     }
 }
