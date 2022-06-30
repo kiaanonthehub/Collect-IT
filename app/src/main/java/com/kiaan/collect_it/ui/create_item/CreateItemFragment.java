@@ -19,6 +19,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,6 +59,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -67,6 +70,7 @@ import Model.dbHandler;
 
 public class CreateItemFragment extends Fragment {
 
+    private static final Object REQUEST_CAMERA = 100;
     public static Uri imageLocalUri = Uri.EMPTY;
 
     // declare java components
@@ -111,10 +115,32 @@ public class CreateItemFragment extends Fragment {
             }
     );
 
+    private final ActivityResultLauncher<String[]> activityResultLauncher;
+
+    public CreateItemFragment() {
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+            @Override
+            public void onActivityResult(Map<String, Boolean> result) {
+                Log.e("activityResultLauncher", ""+result.toString());
+                Boolean areAllGranted = true;
+                for(Boolean b : result.values()) {
+                    areAllGranted = areAllGranted && b;
+                }
+
+                if(areAllGranted) {
+                    chooseImage();
+                }
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_create_item, parent, false);
+        //permissions
+        String[] appPerms;
+        appPerms = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
         // initialise java components
         // declare java components
@@ -243,7 +269,7 @@ public class CreateItemFragment extends Fragment {
         });
 
         imageview_button.setOnClickListener(view13 -> {
-
+            this.activityResultLauncher.launch(appPerms);
             chooseImage();
         });
 
@@ -411,20 +437,22 @@ public class CreateItemFragment extends Fragment {
     }
 
 
-    private void askCamPermission() {
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.CAMERA) !=
-                PackageManager.PERMISSION_GRANTED) {
-
-
-            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.CAMERA}, 1112);
+    private void askPermission() {
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
         } else {
-
-            permissions = true;
-
-            //openCamera();
+            Log.e("DB", "PERMISSION GRANTED");
         }
     }
 
+    private void requestPermissions(FragmentActivity activity, String[] strings, int requestIdMultiplePermissions) {
+    }
 
     private void initialiseFields() {
         imageLocalUri = Uri.parse("");
