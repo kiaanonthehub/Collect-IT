@@ -6,6 +6,11 @@
         <entry key="..\:/Users/27837/Desktop/Collect-IT/app/src/main/res/layout/fragment_create_item.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/27837/Desktop/Collect-IT/app/src/main/res/layout/fragment_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/27837/Desktop/Collect-IT6/app/src/main/res/layout/fragment_chart.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/27837/Documents/gittttt/app/src/main/res/layout/fragment_about_us.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/27837/Documents/gittttt/app/src/main/res/layout/fragment_chart.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/27837/Documents/gittttt/app/src/main/res/layout/fragment_faq.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/27837/Documents/gittttt/app/src/main/res/layout/fragment_progressbar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/drawable/circle.xml" value="0.1235" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/drawable/ic_baseline_bar_chart_24.xml" value="0.31" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/activity_filter_items.xml" value="0.20244565217391305" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -13,6 +18,7 @@
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/activity_update_collection.xml" value="0.33" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/app_bar_navigation.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/content_navigation.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/custom_dailog.xml" value="0.25" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/fragment_chart.xml" value="0.2758152173913043" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/fragment_collection.xml" value="0.1574167507568113" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect IT/Collect-IT/app/src/main/res/layout/fragment_contact_us.xml" value="0.3411458333333333" />
@@ -52,9 +58,7 @@
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3065" />
         <entry key="..\:/Users/Kiaan Maharaj/Desktop/Collect-IT/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3065" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/circle.xml" value="0.184" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/gradient.xml" value="0.153" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/gradient_2.xml" value="0.183" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/gradient_background.xml" value="0.153" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.1" />
@@ -69,8 +73,7 @@
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-ldpi/activity_login.xml" value="1.053125" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw300dp/activity_signup.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw300dp/activity_signup.xml" value="0.144017094017094" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw400dp/activity_signup.xml" value="0.14492753623188406" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw420dp/activity_signup.xml" value="0.15601851851851853" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout-sw480dp/activity_signup.xml" value="0.1" />
@@ -79,20 +82,17 @@
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_filter_items.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_navigation.xml" value="0.144017094017094" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_reset_password.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_signup.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_signup.xml" value="0.14407866609662248" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/activity_update_collection.xml" value="0.22" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/content_navigation.xml" value="0.144017094017094" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_about_us.xml" value="0.14855072463768115" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_chart.xml" value="0.14407866609662248" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_contact_us.xml" value="0.144017094017094" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_create_collection.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_create_item.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_faq.xml" value="0.144017094017094" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_home.xml" value="0.12" />
+        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_item.xml" value="0.22" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_logout.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/fragment_progressbar.xml" value="0.22" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/item.xml" value="0.22" />
         <entry key="..\:/Users/abude/StudioProjects/Collect-IT/app/src/main/res/layout/nav_header_navigation.xml" value="0.144017094017094" />
       </map>

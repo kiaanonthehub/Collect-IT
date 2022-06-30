@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,30 +66,28 @@ import java.util.UUID;
 
 import Model.CURRENT_USER;
 import Model.Item;
+import Model.LoadingDialog;
 import Model.dbHandler;
 
 
 public class CreateItemFragment extends Fragment {
 
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
     private static final Object REQUEST_CAMERA = 100;
     public static Uri imageLocalUri = Uri.EMPTY;
-
+    private final ActivityResultLauncher<String[]> activityResultLauncher;
+    LoadingDialog loadingDialog = new LoadingDialog(getActivity());
     // declare java components
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     Spinner spinner;
     TextInputLayout inputLayoutName;
-
     // declare variables
     EditText etItmName, etItmDesc;
     Button btnCreateItm;
     String name, desc, aquiDate, cat;
     ImageView imageview_button;
     FirebaseStorage storage;
-    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-
-    // instantiate dbHandler object
-    dbHandler db = new dbHandler();
     private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -114,20 +113,20 @@ public class CreateItemFragment extends Fragment {
                 }
             }
     );
-
-    private final ActivityResultLauncher<String[]> activityResultLauncher;
+    // instantiate dbHandler object
+    dbHandler db = new dbHandler();
 
     public CreateItemFragment() {
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
             @Override
             public void onActivityResult(Map<String, Boolean> result) {
-                Log.e("activityResultLauncher", ""+result.toString());
+                Log.e("activityResultLauncher", "" + result.toString());
                 Boolean areAllGranted = true;
-                for(Boolean b : result.values()) {
+                for (Boolean b : result.values()) {
                     areAllGranted = areAllGranted && b;
                 }
 
-                if(areAllGranted) {
+                if (areAllGranted) {
                     chooseImage();
                 }
             }
@@ -138,6 +137,8 @@ public class CreateItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_create_item, parent, false);
+
+
         //permissions
         String[] appPerms;
         appPerms = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
@@ -279,7 +280,7 @@ public class CreateItemFragment extends Fragment {
     // function to let's the user to choose image from camera or gallery
     private void chooseImage() {
 
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"}; // create a menuOption Array
 
         // create a dialog for showing the optionsMenu
 
@@ -291,22 +292,20 @@ public class CreateItemFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                if(optionsMenu[i].equals("Take Photo")){
+                if (optionsMenu[i].equals("Take Photo")) {
 
                     // Open the camera and get the photo
 
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
-                }
-                else if(optionsMenu[i].equals("Choose from Gallery")){
+                } else if (optionsMenu[i].equals("Choose from Gallery")) {
 
                     // choose from  external storage
 
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    startActivityForResult(pickPhoto, 1);
 
-                }
-                else if (optionsMenu[i].equals("Exit")) {
+                } else if (optionsMenu[i].equals("Exit")) {
                     dialogInterface.dismiss();
                 }
 
@@ -367,6 +366,17 @@ public class CreateItemFragment extends Fragment {
         StorageReference reference = storage.getReference().child("image/" + UUID.randomUUID().toString());
 
         UploadTask uploadTask = reference.putBytes(data);
+
+        loadingDialog.startLoadingDialog();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 5000);
+
         uploadTask.addOnFailureListener(exception -> {
             // Handle unsuccessful uploads
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();

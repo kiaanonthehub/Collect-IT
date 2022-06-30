@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.CURRENT_USER;
-import Model.Item;
+import Model.LoadingDialog;
 
 public class ItemFragment extends Fragment {
 
