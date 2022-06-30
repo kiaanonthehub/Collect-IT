@@ -110,7 +110,7 @@ public class progressBarFragment extends Fragment {
         btnViewCatProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Badge.setVisibility(View.VISIBLE);
                 try {
                     PercentageView = 0;
                     selectedCat = spnViewCatProgress.getSelectedItem().toString();
@@ -207,7 +207,7 @@ public class progressBarFragment extends Fragment {
             if (PercentageView <= 25) {
                 Badge.setImageResource(0);
 
-                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setInterpolator(new LinearInterpolator());
                 anim.setRepeatCount(Animation.INFINITE);
                 anim.setDuration(700);
@@ -231,7 +231,7 @@ public class progressBarFragment extends Fragment {
 
             if (PercentageView > 25 && PercentageView <= 50) {
                 Badge.setImageResource(0);
-                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setInterpolator(new LinearInterpolator());
                 anim.setRepeatCount(Animation.INFINITE);
                 anim.setDuration(700);
@@ -256,7 +256,7 @@ public class progressBarFragment extends Fragment {
 
             if (PercentageView > 50 && PercentageView <= 75) {
                 Badge.setImageResource(0);
-                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setInterpolator(new LinearInterpolator());
                 anim.setRepeatCount(Animation.INFINITE);
                 anim.setDuration(700);
@@ -282,7 +282,7 @@ public class progressBarFragment extends Fragment {
 
             if (PercentageView > 75 && PercentageView <= 100) {
                 Badge.setImageResource(0);
-                RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+                RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setInterpolator(new LinearInterpolator());
                 anim.setRepeatCount(Animation.INFINITE);
                 anim.setDuration(700);
