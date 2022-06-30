@@ -1,13 +1,19 @@
 package com.kiaan.collect_it.ui.create_item;
 
+import static Model.CURRENT_USER.permissions;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -29,6 +35,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -50,6 +57,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import Model.CURRENT_USER;
@@ -73,6 +81,7 @@ public class CreateItemFragment extends Fragment {
     String name, desc, aquiDate, cat;
     ImageView imageview_button;
     FirebaseStorage storage;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     // instantiate dbHandler object
     dbHandler db = new dbHandler();
@@ -235,10 +244,49 @@ public class CreateItemFragment extends Fragment {
 
         imageview_button.setOnClickListener(view13 -> {
 
-            openCamera();
+            chooseImage();
         });
 
         return view;
+    }
+
+    // function to let's the user to choose image from camera or gallery
+    private void chooseImage() {
+
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
+
+        // create a dialog for showing the optionsMenu
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // set the items in builder
+
+        builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if(optionsMenu[i].equals("Take Photo")){
+
+                    // Open the camera and get the photo
+
+                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+                }
+                else if(optionsMenu[i].equals("Choose from Gallery")){
+
+                    // choose from  external storage
+
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , 1);
+
+                }
+                else if (optionsMenu[i].equals("Exit")) {
+                    dialogInterface.dismiss();
+                }
+
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -249,8 +297,39 @@ public class CreateItemFragment extends Fragment {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             imageview_button.setImageBitmap(captureImage);
 
-            uploadImage(captureImage);
+            //uploadImage(captureImage);
 
+        }
+
+        if (resultCode != Activity.RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == Activity.RESULT_OK && data != null) {
+                        Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+                        imageview_button.setImageBitmap(captureImage);
+                        uploadImage(captureImage);
+                    }
+                    break;
+                case 1:
+                    if (resultCode == Activity.RESULT_OK && data != null) {
+                        Uri captureImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (captureImage != null) {
+                            Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(captureImage, filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                imageview_button.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                uploadImage(captureImage);
+                                cursor.close();
+                            }
+                        }
+
+                    }
+                    break;
+            }
         }
     }
 
@@ -340,7 +419,7 @@ public class CreateItemFragment extends Fragment {
             ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.CAMERA}, 1112);
         } else {
 
-            CURRENT_USER.permissions = true;
+            permissions = true;
 
             //openCamera();
         }
