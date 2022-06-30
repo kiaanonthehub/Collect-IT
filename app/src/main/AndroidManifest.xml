@@ -23,7 +23,7 @@
         android:theme="@style/Theme.CollectIT"
         tools:targetApi="31">
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".ui.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.UpdateCollectionActivity"

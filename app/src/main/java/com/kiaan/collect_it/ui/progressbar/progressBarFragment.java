@@ -223,7 +223,7 @@ public class progressBarFragment extends Fragment {
                 status.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        status.setText("You are Level 1 Milestone");
+                        status.setText("You are Level 4 Milestone");
                     }
                 }, 3000);
             }
@@ -247,7 +247,7 @@ public class progressBarFragment extends Fragment {
                 status.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        status.setText("You are Level 2 Milestone");
+                        status.setText("You are Level 3 Milestone");
                     }
                 }, 3000);
             }
@@ -272,7 +272,7 @@ public class progressBarFragment extends Fragment {
                 status.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        status.setText("You are Level 3 Milestone");
+                        status.setText("You are Level 2 Milestone");
                     }
                 }, 3000);
 
@@ -299,7 +299,7 @@ public class progressBarFragment extends Fragment {
                 status.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        status.setText("You are Level 4 Milestone");
+                        status.setText("You are Level 1 Milestone");
                     }
                 }, 2000);
             }

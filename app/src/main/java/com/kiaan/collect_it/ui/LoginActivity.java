@@ -1,7 +1,5 @@
 package com.kiaan.collect_it.ui;
 
-import static Model.Global.userID;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -14,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,14 +31,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.kiaan.collect_it.R;
-import com.kiaan.collect_it.ResetPasswordActivity;
-
-import java.util.Locale;
 
 import Model.CURRENT_USER;
-import Model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
