@@ -367,20 +367,23 @@ public class CreateItemFragment extends Fragment {
 
         UploadTask uploadTask = reference.putBytes(data);
 
-        loadingDialog.startLoadingDialog();
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadingDialog.dismissDialog();
-            }
-        }, 5000);
 
         uploadTask.addOnFailureListener(exception -> {
+
             // Handle unsuccessful uploads
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
         }).addOnSuccessListener(taskSnapshot -> {
+
+            loadingDialog.startLoadingDialog();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                }
+            }, 5000);
+
             reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
