@@ -124,9 +124,6 @@ public class CreateItemFragment extends Fragment {
                 areAllGranted = areAllGranted && b;
             }
 
-            if (areAllGranted) {
-                chooseImage();
-            }
         });
     }
 
@@ -269,44 +266,44 @@ public class CreateItemFragment extends Fragment {
         imageview_button.setOnClickListener(view13 -> {
             this.activityResultLauncher.launch(appPerms);
             chooseImage();
+
         });
 
         return view;
     }
 
     // function to let's the user to choose image from camera or gallery
-    private void chooseImage() {
+    public void chooseImage() {
 
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"}; // create a menuOption Array
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
 
         // create a dialog for showing the optionsMenu
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
         // set the items in builder
 
-        builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setItems(optionsMenu, (dialogInterface, i) -> {
 
-                if (optionsMenu[i].equals("Take Photo")) {
+            if (optionsMenu[i].equals("Take Photo")) {
 
-                    // Open the camera and get the photo
+                // Open the camera and get the photo
 
-                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                } else if (optionsMenu[i].equals("Choose from Gallery")) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+            else if (optionsMenu[i].equals("Choose from Gallery")) {
 
-                    // choose from  external storage
+                // choose from  external storage
 
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto, 1);
-
-                } else if (optionsMenu[i].equals("Exit")) {
-                    dialogInterface.dismiss();
-                }
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 1);
 
             }
+            else if (optionsMenu[i].equals("Exit")) {
+                dialogInterface.dismiss();
+            }
+
         });
         builder.show();
     }
@@ -319,7 +316,7 @@ public class CreateItemFragment extends Fragment {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             imageview_button.setImageBitmap(captureImage);
 
-            //uploadImage(captureImage);
+            uploadImage(captureImage);
 
         }
         //handle dialog, display and upload image
@@ -373,19 +370,19 @@ public class CreateItemFragment extends Fragment {
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
         }).addOnSuccessListener(taskSnapshot -> {
 
-            loadingDialog.startLoadingDialog();
+//            loadingDialog.startLoadingDialog();
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loadingDialog.dismissDialog();
-                }
-            }, 5000);
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    loadingDialog.dismissDialog();
+//                }
+//            }, 5000);
 
             reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
-            Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successfully", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -397,7 +394,7 @@ public class CreateItemFragment extends Fragment {
 
                     reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
-                    Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded successfully", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
