@@ -52,12 +52,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password. " +
+                                Toast.makeText(ResetPasswordActivity.this, "Password reset email sent" +
                                                 "Please check your spam folder for the email", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email", Toast.LENGTH_LONG).show();
                             }
-
+                            inputEmail.getText().clear();
                         });
             }
         });

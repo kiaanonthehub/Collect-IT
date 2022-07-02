@@ -76,7 +76,7 @@ public class CreateItemFragment extends Fragment {
     private static final Object REQUEST_CAMERA = 100;
     public static Uri imageLocalUri = Uri.EMPTY;
     private final ActivityResultLauncher<String[]> activityResultLauncher;
-    LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+    //LoadingDialog loadingDialog = new LoadingDialog(getActivity());
     // declare java components
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -117,18 +117,15 @@ public class CreateItemFragment extends Fragment {
     dbHandler db = new dbHandler();
 
     public CreateItemFragment() {
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-            @Override
-            public void onActivityResult(Map<String, Boolean> result) {
-                Log.e("activityResultLauncher", "" + result.toString());
-                Boolean areAllGranted = true;
-                for (Boolean b : result.values()) {
-                    areAllGranted = areAllGranted && b;
-                }
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+            Log.e("activityResultLauncher", "" + result.toString());
+            Boolean areAllGranted = true;
+            for (Boolean b : result.values()) {
+                areAllGranted = areAllGranted && b;
+            }
 
-                if (areAllGranted) {
-                    chooseImage();
-                }
+            if (areAllGranted) {
+                chooseImage();
             }
         });
     }
@@ -325,13 +322,14 @@ public class CreateItemFragment extends Fragment {
             //uploadImage(captureImage);
 
         }
-
+        //handle dialog, display and upload image
         if (resultCode != Activity.RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == Activity.RESULT_OK && data != null) {
                         Bitmap captureImage = (Bitmap) data.getExtras().get("data");
                         imageview_button.setImageBitmap(captureImage);
+                        Toast.makeText(CreateItemFragment.super.getContext(), "Image uploading, please wait", Toast.LENGTH_SHORT).show();
                         uploadImage(captureImage);
                     }
                     break;
@@ -347,6 +345,7 @@ public class CreateItemFragment extends Fragment {
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
                                 imageview_button.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                Toast.makeText(CreateItemFragment.super.getContext(), "Image uploading, please wait", Toast.LENGTH_SHORT).show();
                                 uploadImage(captureImage);
                                 cursor.close();
                             }
@@ -374,15 +373,15 @@ public class CreateItemFragment extends Fragment {
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
         }).addOnSuccessListener(taskSnapshot -> {
 
-            loadingDialog.startLoadingDialog();
+//            loadingDialog.startLoadingDialog();
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loadingDialog.dismissDialog();
-                }
-            }, 5000);
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    loadingDialog.dismissDialog();
+//                }
+//            }, 5000);
 
             reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
@@ -419,7 +418,7 @@ public class CreateItemFragment extends Fragment {
 
         etItmName.getText().clear();
         etItmDesc.getText().clear();
-        imageview_button.setImageDrawable(null);
+        imageview_button.setImageResource(R.drawable.camera_icon);
         mDisplayDate.setText("Date of Acquisition");
     }
 
