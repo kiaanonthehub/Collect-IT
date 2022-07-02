@@ -76,7 +76,7 @@ public class CreateItemFragment extends Fragment {
     private static final Object REQUEST_CAMERA = 100;
     public static Uri imageLocalUri = Uri.EMPTY;
     private final ActivityResultLauncher<String[]> activityResultLauncher;
-    //LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+    LoadingDialog loadingDialog = new LoadingDialog(getActivity());
     // declare java components
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -373,15 +373,15 @@ public class CreateItemFragment extends Fragment {
             Toast.makeText(CreateItemFragment.super.getContext(), "Image loaded failed", Toast.LENGTH_SHORT).show();
         }).addOnSuccessListener(taskSnapshot -> {
 
-//            loadingDialog.startLoadingDialog();
+            loadingDialog.startLoadingDialog();
 
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    loadingDialog.dismissDialog();
-//                }
-//            }, 5000);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                }
+            }, 5000);
 
             reference.getDownloadUrl().addOnSuccessListener(uri -> imageLocalUri = uri);
 
