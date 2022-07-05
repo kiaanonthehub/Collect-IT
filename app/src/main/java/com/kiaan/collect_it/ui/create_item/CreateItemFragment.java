@@ -76,7 +76,7 @@ public class CreateItemFragment extends Fragment {
     private static final Object REQUEST_CAMERA = 100;
     public static Uri imageLocalUri = Uri.EMPTY;
     private final ActivityResultLauncher<String[]> activityResultLauncher;
-    LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+//    LoadingDialog loadingDialog = new LoadingDialog(getActivity());
     // declare java components
     EditText mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
